@@ -1,11 +1,11 @@
-<?php 
-
-include('models/ExampleModel.php');
+<?php
+namespace App\Controllers;
+use App\Models\ExampleModel;
 
 class HomeController {
     public function index() {
         $model = new ExampleModel();
         $data = $model->getData();
-        include('views/home.php');
+        include 'views/home.php';
     }
 }

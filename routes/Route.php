@@ -1,4 +1,5 @@
 <?php
+namespace App\Routes;
 class Route {
     private static $routes = [];
 
@@ -19,7 +20,7 @@ class Route {
         foreach (self::$routes as $route) {
             if (BASE.$route['url'] == $urlPath && $route['method'] == $method) {
                 $controllerSegments = explode('@', $route['controller']);
-                $controllerName = $controllerSegments[0];
+                $controllerName = 'App\\Controllers\\'.$controllerSegments[0];
                 $methodName = $controllerSegments[1];
                 $controllerInstance = new $controllerName();
 
