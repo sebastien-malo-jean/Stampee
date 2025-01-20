@@ -10,6 +10,17 @@
 
 <body>
     <h1><?php echo $data; ?></h1>
+    <?php 
+    function hashPassword($password, $cost = 10){
+        $options = [
+            'cost' => $cost
+        ];
+
+        return password_hash($password, PASSWORD_BCRYPT, $options);
+    }
+
+    echo hashPassword("secret123");
+    ?>
 </body>
 
 </html>
