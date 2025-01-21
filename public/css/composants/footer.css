@@ -10,15 +10,17 @@
 }
 
 .footer__nav {
-  display: flex;
-  flex-direction: column;
-  /* Adapté pour l'accordéon */
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  /* 5 colonnes égales */
   gap: var(--spacing-thin);
   max-width: 100%;
 }
 
 .footer__nav-section {
-  border-bottom: 1px solid var(--light);
+  border: 1px solid var(--light);
+  padding: var(--spacing-micro);
+  background-color: var(--dark);
 }
 
 .accordion-checkbox {
@@ -28,12 +30,12 @@
 
 .footer__nav-section-title {
   font-size: large;
-  padding: var(--spacing-micro);
   cursor: pointer;
   display: block;
-  /* Permet de cliquer sur tout le label */
+  padding: var(--spacing-thin);
   background-color: var(--dark);
   color: var(--light);
+  border-bottom: 1px solid var(--light);
 }
 
 .footer__nav-section-title:hover {
@@ -44,14 +46,14 @@
 
 .footer__nav-list {
   max-height: 0;
-  /* Par défaut, caché */
+  /* Cacher les listes par défaut */
   overflow: hidden;
   transition: max-height 0.3s ease-out;
 }
 
 .accordion-checkbox:checked~.footer__nav-list {
   max-height: 300px;
-  /* Ajuster selon la taille du contenu */
+  /* Ajuster selon la taille maximale de chaque liste */
 }
 
 .footer__nav-item {
@@ -71,10 +73,13 @@
 .footer__copyright {
   display: flex;
   justify-content: center;
+  padding-top: var(--spacing-thin);
+  border-top: 1px solid var(--light);
 }
 
 @media (max-width: 600px) {
   .footer__nav {
-    flex-direction: column;
+    grid-template-columns: 1fr;
+    /* Une seule colonne pour petits écrans */
   }
 }

@@ -1,7 +1,73 @@
-    </main>
-    <footer>
-        <p>© 2025 All rights reserved.</p>
-    </footer>
-    </body>
+</main>
 
-    </html>
+<head>
+    <link rel="stylesheet" href="/asset/css/composants/footer.css">
+</head>
+<footer class='footer'>
+    <nav class='footer__nav'>
+        <!-- Section Membre -->
+        <div class="footer__nav-section">
+            <input type="checkbox" id="section1" class="accordion-checkbox">
+            <label for="section1" class="footer__nav-section-title">Membre</label>
+            <ul class='footer__nav-list'>
+                <li class='footer__nav-item'><a href='' class='footer__link'>Devenir Membre</a></li>
+                <li class='footer__nav-item'><a href='' class='footer__link'>Se connecter</a></li>
+                <li class='footer__nav-item'><a href='' class='footer__link'>Votre Profil</a></li>
+            </ul>
+        </div>
+
+        <!-- Section Timbres & Enchères -->
+        <div class="footer__nav-section">
+            <input type="checkbox" id="section3" class="accordion-checkbox">
+            <label for="section3" class="footer__nav-section-title">Timbres & Enchères</label>
+            <ul class='footer__nav-list'>
+                <li class='footer__nav-item'><a href='' class='footer__link'>Timbres</a></li>
+                <li class='footer__nav-item current__link'><a href='' class='footer__link'>Enchères</a></li>
+            </ul>
+        </div>
+
+        <!-- Section À propos -->
+        <div class="footer__nav-section">
+            <input type="checkbox" id="section2" class="accordion-checkbox">
+            <label for="section2" class="footer__nav-section-title">À propos</label>
+            <ul class='footer__nav-list'>
+                <li class='footer__nav-item'><a href='' class='footer__link'>À propos de Lord Reginald Stampee III</a>
+                </li>
+                <li class='footer__nav-item'><a href='' class='footer__link'>Biographie du Lord</a></li>
+                <li class='footer__nav-item'><a href='' class='footer__link'>Historique familial</a></li>
+                <li class='footer__nav-item'><a href='' class='footer__link'>Actualités</a></li>
+            </ul>
+        </div>
+
+        <!-- Section Fonctionnalités -->
+        <div class="footer__nav-section">
+            <input type="checkbox" id="section4" class="accordion-checkbox">
+            <label for="section4" class="footer__nav-section-title">Fonctionnalités</label>
+            <ul class='footer__nav-list'>
+                <li class='footer__nav-item'><a href='' class='footer__link'>Fonctionnement de la plateforme</a></li>
+                <li class='footer__nav-item'><a href='' class='footer__link'>Aide « Profil »</a></li>
+                <li class='footer__nav-item'><a href='' class='footer__link'>Aide « Comment placer une offre »</a></li>
+                <li class='footer__nav-item'><a href='' class='footer__link'>Aide « Suivre une enchère »</a></li>
+                <li class='footer__nav-item'><a href='' class='footer__link'>Aide « Trouver l’enchère désirée »</a></li>
+            </ul>
+        </div>
+
+        <!-- Section Contact -->
+        <div class="footer__nav-section">
+            <input type="checkbox" id="section5" class="accordion-checkbox">
+            <label for="section5" class="footer__nav-section-title">Contact</label>
+            <ul class='footer__nav-list'>
+                <li class='footer__nav-item'><a href='' class='footer__link'>Contacter le webmestre</a></li>
+                <li class='footer__nav-item'><a href='' class='footer__link'>Contactez-nous</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class='footer__copyright'>
+        <p>Copyright © 2024 Stampee. Tous droits réservés.</p>
+    </section>
+</footer>
+
+</body>
+
+</html>
