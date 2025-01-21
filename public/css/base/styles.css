@@ -1,0 +1,80 @@
+main {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+/* pages */
+.auction-page {
+  display: flex;
+  flex-basis: 100%;
+}
+
+.content__frame {
+  box-sizing: border-box;
+  padding: clamp(var(--spacing-thin), 3dvw, var(--spacing-broad));
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  & section {
+    margin-top: 50px;
+  }
+
+  & section:nth-last-child() {
+    margin-bottom: 25px;
+  }
+}
+
+.content__frame section:last-child {
+  margin-bottom: 25px;
+}
+
+.content__frame section:first-child {
+  margin-top: 25px;
+}
+
+.content__frame.auction-page {
+  flex-basis: 100%;
+}
+
+.content__frame-under-title {
+  margin-bottom: var(--spacing-broad);
+}
+
+.cards__box {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(275px, 1fr));
+  gap: var(--spacing-thin);
+}
+
+.hidden {
+  display: none;
+}
+
+@media (max-width: 600px) {
+  .content__frame.auction-page {
+    position: relative;
+  }
+
+  .content__frame-filter {
+    position: absolute;
+  }
+
+  .content__frame-header {
+    text-align: center;
+  }
+
+}
+
+/* AUTRES */
+
+.title {
+  font-family: var(--font-title);
+  font-weight: 600;
+}
+
+.othersSection {
+  margin: clamp(var(--spacing-thin), 3dvw, var(--spacing-broad));
+}

@@ -1,0 +1,271 @@
+@import url("https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+
+:root {
+  /*============================ */
+  /* = COLORS */
+  /*============================ */
+  /* --primary: rgb(109, 7, 26); */
+  --primary: rgb(0, 33, 71);
+  --secondary: rgb(234, 225, 213);
+  --tertiary: rgb(208, 165, 39);
+  --CTA: rgb(220, 38, 60);
+
+  --light: rgb(242, 242, 242);
+  --dark: rgb(44, 44, 44);
+
+  /*============================ */
+  /* = SPACING */
+  /*============================ */
+  --spacing-pico: 0.1rem;
+  --spacing-nano: 0.3rem;
+  --spacing-micro: 0.5rem;
+  /*--- */
+  --spacing-thinnest: 1rem;
+  --spacing-thinner: 1.5rem;
+  --spacing-thin: 2rem;
+  --spacing-broad: 4rem;
+  --spacing-broader: 6rem;
+  --spacing-broadest: 8rem;
+  --spacing-large: 10rem;
+  --spacing-larger: 12rem;
+  --spacing-largest: 16rem;
+  /*--- */
+  --spacing-mega: 24rem;
+  --spacing-giga: 54rem;
+  --spacing-tera: 78rem;
+
+  /*============================ */
+  /* = DIMENSIONS */
+  /*============================ */
+  --dimension-tiniest: calc(var(--font-miniature) * 20);
+  --dimension-tinier: calc(var(--font-shortest) * 20);
+  --dimension-tiny: calc(var(--font-shorter) * 20);
+  --dimension-smallest: calc(var(--font-short) * 20);
+  --dimension-smaller: calc(var(--font-tall) * 20);
+  --dimension-small: calc(var(--font-tallest) * 20);
+  --dimension-big: calc(var(--font-huger) * 20);
+  --dimension-bigger: calc(var(--font-hugest) * 20);
+  --dimension-biggest: calc(var(--font-giant) * 10);
+
+  /*========================= */
+  /* = FONT-FAMILY */
+  /*========================= */
+  --font-base: "Montserrat", sans-serif;
+  --font-title: "Libre Baskerville", serif;
+
+  /*========================= */
+  /* = FONT-SIZE */
+  /*========================= */
+  --font-miniature: 10px;
+  --font-shortest: 12px;
+  --font-shorter: 14px;
+  --font-short: 15px;
+  --font-current: 16px;
+  --font-tall: 21px;
+  --font-taller: 32px;
+  --font-tallest: 38px;
+  --font-huge: 46px;
+  --font-huger: 80px;
+  --font-hugest: 80px;
+  --font-giant: 120px;
+
+  /* --font-miniature:  7px;
+		--font-shortest:   11px;
+		--font-shorter:    13px;
+		--font-short:      12px;
+		--font-current:    14px;
+		--font-tall:       16px;
+		--font-taller:     20px;
+		--font-tallest:    24px;
+		--font-huge:       28px;
+		--font-huger:      40px;
+		--font-hugest:     50px;
+		--font-giant:      10.0em; */
+
+  /*========================= */
+  /* = LINE-HEIGHT */
+  /*========================= */
+  --line-height-perfect: 1em;
+  --line-height-compressed: 1em;
+  --line-height-tightest: 1.26875em;
+  --line-height-tighter: 1.62875em;
+  --line-height-tight: 1.74285em;
+  --line-height-normal: 2.375em;
+  --line-height-loose: 3.6em;
+  --line-height-looser: 4.2em;
+  --line-height-loosest: 5em;
+
+  /*============================ */
+  /* = LETTER-SPACING */
+  /*============================ */
+  --letter-spacing-narrowest: -0.14em;
+  --letter-spacing-narrower: -0.041275em;
+  --letter-spacing-narrow: -0.01275em;
+  --letter-spacing-wide: 0.02em;
+  --letter-spacing-wider: 0.04125em;
+  --letter-spacing-widest: 0.0675em;
+
+  /*============================ */
+  /* = OPACITY */
+  /*============================ */
+  --transparent: 0;
+  --almost-transparent: 0.1;
+  --quasi-transparent: 0.2;
+  --semi-transparent: 0.3;
+  --partially-transparent: 0.4;
+  --translucent: 0.5;
+  --partially-opaque: 0.6;
+  --semi-opaque: 0.7;
+  --quasi-opaque: 0.8;
+  --almost-opaque: 0.9;
+  --opaque: 1;
+
+  /*============================ */
+  /* = BORDER SIZE */
+  /*============================ */
+  --border-slimmest: 1px;
+  --border-slimmer: 2px;
+  --border-slim: 3px;
+  --border-thick: 8px;
+  --border-thicker: 10px;
+  --border-thickest: 20px;
+
+  /*========================= */
+  /* = RADIUS */
+  /*========================= */
+  --radius-sharpest: 2px;
+  --radius-sharper: 3px;
+  --radius-sharp: 5px;
+  --radius-dull: 15px;
+  --radius-duller: 20px;
+  --radius-dullest: 80px;
+
+  /*========================= */
+  /* = DURATION */
+  /*========================= */
+  --duration-fastest: 80ms;
+  --duration-faster: 200ms;
+  --duration-fast: 300ms;
+  --duration-medium: 500ms;
+  --duration-slow: 750ms;
+  --duration-slower: 1000ms;
+  --duration-slowest: 10000ms;
+
+  /*========================= */
+  /* = ROOT FONT SCALE */
+  /*========================= */
+  --font-size: 0.4375;
+  --font-size-xs: 0.5;
+  --font-size-md: 0.5625;
+  --font-size-lg: 0.625;
+
+  /*========================= */
+  /* = EASINGS */
+  /*========================= */
+  --ease-standard-in: --ease-in-quad;
+  --ease-standard: --ease-in-out-cubic;
+  --ease-alternate: --ease-in-out-back;
+  --ease-standard-out: --ease-out-quad;
+
+  --ease-linear: cubic-bezier(0, 0, 1, 1);
+  --ease-in: cubic-bezier(0.42, 0, 1, 1);
+  --ease-out: cubic-bezier(0, 0, 0.58, 1);
+  --ease-in-out: cubic-bezier(0.42, 0, 0.58, 1);
+  --ease-in-sine: cubic-bezier(0.47, 0, 0.745, 0.715);
+  --ease-out-sine: cubic-bezier(0.39, 0.575, 0.565, 1);
+  --ease-in-out-sine: cubic-bezier(0.445, 0.05, 0.55, 0.95);
+  --ease-in-quad: cubic-bezier(0.55, 0.085, 0.68, 0.53);
+  --ease-out-quad: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-in-out-quad: cubic-bezier(0.455, 0.03, 0.515, 0.955);
+  --ease-in-cubic: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+  --ease-out-cubic: cubic-bezier(0.215, 0.61, 0.355, 1);
+  --ease-in-out-cubic: cubic-bezier(0.645, 0.045, 0.355, 1);
+  --ease-in-quart: cubic-bezier(0.895, 0.03, 0.685, 0.22);
+  --ease-out-quart: cubic-bezier(0.165, 0.84, 0.44, 1);
+  --ease-in-out-quart: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-in-quint: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+  --ease-out-quint: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-expo: cubic-bezier(0.95, 0.05, 0.795, 0.035);
+  --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+  --ease-in-out-expo: cubic-bezier(1, 0, 0, 1);
+  --ease-in-circ: cubic-bezier(0.6, 0.04, 0.98, 0.335);
+  --ease-out-circ: cubic-bezier(0.075, 0.82, 0.165, 1);
+  --ease-in-out-circ: cubic-bezier(0.785, 0.135, 0.15, 0.86);
+  --ease-in-back: cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  --ease-out-back: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  --ease-in-out-back: cubic-bezier(0.68, -0.25, 0.265, 1.25);
+  --ease-back-in: cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  --ease-bounce-light: cubic-bezier(0, 1.1, 1, 1.1);
+}
+
+/*@media screen and (max-width: 1200px) {
+
+	:root {
+		--radius-dull:         9px;
+
+		--font-miniature:  7px;
+		--font-shortest:   8px;
+		--font-shorter:    9px;
+		--font-short:      11px;
+		--font-current:    13px;
+		--font-tall:       15px;
+		--font-taller:     17px;
+		--font-tallest:    21px;
+		--font-huge:       24px;
+		--font-huger:      28px;
+		--font-hugest:     5.0em;
+		--font-giant:      10.0em;
+		font-size: 8px;
+	}
+}*/
+
+/*@media screen and (min-width: 1200px) {*/
+
+:root {
+  /*		--font-miniature:  11px;
+		--font-shortest:   11px;
+		--font-shorter:    11px;
+		--font-short:      12px;
+		--font-current:    14px;
+		--font-tall:       16px;
+		--font-taller:     21px;
+		--font-tallest:    28px;
+		--font-huge:       36px;
+		--font-huger:      48px;
+		--font-hugest:     60px;
+		--font-giant:      80px;*/
+  font-size: 11px;
+  --font-miniature: 14px;
+  --font-shortest: 14px;
+  --font-shorter: 14px;
+  --font-short: 16px;
+  --font-current: 18px;
+  --font-tall: 20px;
+  --font-taller: 26px;
+  --font-tallest: 35px;
+  --font-huge: 45px;
+  --font-huger: 60px;
+  --font-hugest: 75px;
+  --font-giant: 100px;
+}
+
+/*}*/
+
+/*@media screen and (min-width: 1700px) {*/
+
+/*	:root {
+		--font-miniature:  11px;
+		--font-shortest:   12px;
+		--font-shorter:    14px;
+		--font-short:      15px;
+		--font-current:    16px;
+		--font-tall:       21px;
+		--font-taller:     24px;
+		--font-tallest:    32px;
+		--font-huge:       38px;
+		--font-huger:      44px;
+		--font-hugest:     5.0em;
+		--font-giant:      10.0em;
+		font-size: 14px;
+	}*/
+/*}*/

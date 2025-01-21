@@ -3,11 +3,6 @@ body {
     margin: auto;
 }
 
-nav {
-    background-color: #333;
-    overflow: hidden;
-}
-
 nav ul {
     list-style-type: none;
     margin: 0;
@@ -53,14 +48,6 @@ td {
 
 tr:nth-child(even) {
     background-color: #f2f2f2;
-}
-
-.container {
-    width: 300px;
-    margin: 0 auto;
-    border: 1px solid #CCCCCC;
-    padding: 30px;
-    border-radius: 10px;
 }
 
 label {
@@ -124,14 +111,4 @@ select {
     border: red 1px solid;
     font-size: 0.9em;
     color: red;
-}
-
-footer {
-    background-color: #333;
-    color: white;
-    text-align: center;
-    padding: 20px;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
 }

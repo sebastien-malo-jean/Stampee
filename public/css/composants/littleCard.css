@@ -1,0 +1,55 @@
+.littleCard {
+    padding: var(--spacing-micro);
+    border: 2px solid rgb(0, 0, 0, 0);
+    background-color: var(--secondary);
+    max-width: 250px;
+    min-width: 250px;
+    overflow: hidden;
+    border-radius: 8px;
+    object-fit: cover;
+    transition: border 550ms;
+
+    &:hover {
+        cursor: pointer;
+        border: 2px solid var(--primary);
+        box-shadow: 2px 2px 16px rgb(0, 0, 0, 0.5);
+        z-index: 2;
+    }
+}
+
+.littleCard__picture {
+    max-width: 100%;
+}
+
+.littleCard__img {
+    width: 100%;
+    height: auto;
+}
+
+.littleCard__detail {
+    margin-top: var(micro);
+
+    & p {
+        line-height: 1.5rem;
+        font-size: clamp(var(--font-shortest), 2.5dvw, var(--font-current));
+    }
+
+    & .littleCard__title+.littleCard__price,
+    .littleCard__price+* {
+        margin-top: clamp(var(--spacing-micro), 1.5dvw, var(--spacing-thin));
+    }
+}
+
+
+
+
+
+.littleCard__price {
+    font-weight: 600;
+    font-size: var();
+}
+
+.littleCard__auction-timeDetail {
+    display: flex;
+    justify-content: space-between;
+}

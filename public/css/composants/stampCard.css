@@ -1,0 +1,182 @@
+/* css sur les images */
+.stampCard,
+.stampCard__gallery {
+    display: flex;
+    gap: var(--spacing-thin);
+}
+
+.stampCard {
+    align-self: center;
+    gap: var(--spacing-thin);
+    border-radius: var(--radius-sharper);
+    padding: var(--spacing-thin);
+    background-color: var(--secondary);
+    max-width: 100%;
+}
+
+.stampCard__gallery {
+    flex-grow: 2;
+    align-items: stretch;
+    max-width: 100%;
+    gap: var(--spacing-thin);
+}
+
+.stampCard__gallery-figure {
+    order: 2;
+    position: relative;
+    flex-grow: 3;
+    max-height: 750px;
+}
+
+.stampCard__gallery-figure--img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.stampCard__gallery-thumbnails {
+    order: 1;
+    flex-basis: 200px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    max-height: 750px;
+    gap: var(--spacing-thin);
+    scrollbar-width: thin;
+    padding: var(--spacing-thin);
+}
+
+.stampCard__gallery-thumbnails--img {
+    height: 125px;
+    width: 100%;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+/* css sur les details */
+.stampCard__box-details {
+    flex-basis: 400px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.stampCard__details+.stampCard__auction {
+    margin-top: var(--spacing-broad);
+}
+
+.stampCard__details,
+.stampCard__auction {
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-thinnest);
+}
+
+.stampCard__details-title,
+.stampCard__auction-title {
+    margin-bottom: var(--spacing-thin);
+}
+
+.stampCard__details-box,
+.stampCard__auction-box {
+    display: flex;
+    justify-content: space-between;
+}
+
+.stampCard__details-box--label,
+.stampCard__auction-box--label {
+    font-weight: 600;
+}
+
+.stampCard__details .stampCard__details-box:nth-child(2n),
+.stampCard__auction .stampCard__auction-box:nth-child(2n) {
+    background-color: rgb(255, 255, 255, 0.6);
+}
+
+.stampCard__desciption {
+    flex-direction: column;
+    gap: var(--spacing-thinnest);
+}
+
+@media (max-width:850px) {
+    .stampCard {
+        flex-direction: column;
+    }
+
+    .stampCard__details {
+        max-width: 100%;
+    }
+
+    .stampCard__gallery {
+        max-width: 100%;
+        flex-direction: column;
+    }
+
+    .stampCard__gallery-figure,
+    .stampCard__gallery-thumbnails {
+        max-width: 100%;
+    }
+
+    .stampCard__gallery-figure {
+        order: 1
+    }
+
+    .stampCard__gallery-thumbnails {
+        order: 2;
+        max-width: 100%;
+        flex-direction: row;
+        max-height: 150px;
+        overflow-y: auto;
+    }
+
+    .stampCard__gallery-thumbnails--img {
+        aspect-ratio: 1 / 1;
+        width: 125px;
+        object-fit: cover;
+    }
+}
+
+@media (max-width: 1630px) {
+    .stampCard__gallery {
+        flex-direction: column;
+    }
+
+    .stampCard__gallery-figure {
+        order: 1;
+    }
+
+    .stampCard__gallery-thumbnails {
+        order: 2;
+        flex-basis: 145px;
+        flex-direction: row;
+        overflow-x: auto;
+        max-height: 750px;
+        max-width: 100%;
+        gap: var(--spacing-thin);
+        scrollbar-width: thin;
+        padding: var(--spacing-thin);
+    }
+
+}
+
+/* AUTRES */
+
+.stampCard__button {
+    border-radius: var(--radius-sharper);
+    background-color: var(--primary);
+    color: var(--tertiary);
+    margin-top: var(--spacing-broad);
+    padding: var(--spacing-thinnest);
+    font-size: var(--font-tall);
+    font-weight: 600;
+    align-self: center;
+    max-width: 35%;
+    min-width: 35%;
+
+    &:hover {
+        background-color: var(--tertiary);
+        color: var(--primary);
+        text-decoration: underline;
+    }
+}

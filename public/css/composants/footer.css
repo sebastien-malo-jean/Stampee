@@ -1,0 +1,80 @@
+.footer {
+  min-width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(var(--spacing-thin), 3dvw, var(--spacing-broad));
+  background-color: var(--dark);
+  color: var(--light);
+  gap: var(--spacing-thinnest);
+}
+
+.footer__nav {
+  display: flex;
+  flex-direction: column;
+  /* Adapté pour l'accordéon */
+  gap: var(--spacing-thin);
+  max-width: 100%;
+}
+
+.footer__nav-section {
+  border-bottom: 1px solid var(--light);
+}
+
+.accordion-checkbox {
+  display: none;
+  /* Masque l'input checkbox */
+}
+
+.footer__nav-section-title {
+  font-size: large;
+  padding: var(--spacing-micro);
+  cursor: pointer;
+  display: block;
+  /* Permet de cliquer sur tout le label */
+  background-color: var(--dark);
+  color: var(--light);
+}
+
+.footer__nav-section-title:hover {
+  background-color: var(--light);
+  color: var(--dark);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.footer__nav-list {
+  max-height: 0;
+  /* Par défaut, caché */
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+}
+
+.accordion-checkbox:checked~.footer__nav-list {
+  max-height: 300px;
+  /* Ajuster selon la taille du contenu */
+}
+
+.footer__nav-item {
+  line-height: var(--spacing-thinner);
+  padding: var(--spacing-thinner);
+}
+
+.footer__nav-item a {
+  text-decoration: none;
+  color: var(--light);
+}
+
+.footer__nav-item a:hover {
+  text-decoration: underline;
+}
+
+.footer__copyright {
+  display: flex;
+  justify-content: center;
+}
+
+@media (max-width: 600px) {
+  .footer__nav {
+    flex-direction: column;
+  }
+}

@@ -1,0 +1,61 @@
+h1 {
+  font-size: clamp(2rem, 1.5rem + 2.5vw, 3.75rem);
+
+}
+
+h2 {
+  font-size: clamp(1.5rem, 1.125rem + 2vw, 2.5rem);
+}
+
+h3 {
+  font-size: clamp(1.25rem, 1rem + 1.75vw, 2.1875rem);
+}
+
+h4 {
+  font-size: clamp(1.125rem, 0.875rem + 1.5vw, 1.875rem);
+}
+
+h5 {
+  font-size: clamp(1rem, 0.75rem + 1.25vw, 1.5625rem);
+}
+
+h6 {
+  font-size: clamp(0.875rem, 0.625rem + 1vw, 1.25rem);
+}
+
+p,
+a,
+td {
+  font-size: clamp(1rem, 0.125rem + 1.2vw, 1.4rem);
+  max-width: 80ch;
+}
+
+h1 {
+  margin-bottom: 20px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+label {
+  font-family: var(--font-title);
+  font-weight: 600;
+}
+
+p,
+li,
+input,
+td {
+  font-family: var(--font-base);
+}
+
+p {
+  font-weight: 500;
+}
+
+a {
+  font-weight: 600;
+}

@@ -1,0 +1,135 @@
+/* Styles de base pour le filtre */
+.filter {
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing-thinnest);
+  background-color: var(--secondary);
+  max-width: 225px;
+  min-width: 175px;
+  margin: var(--spacing-broad);
+  max-height: 625px;
+  position: relative;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  z-index: 10;
+}
+
+.filter__label {
+  display: flex;
+  flex-direction: column;
+  margin-top: var(--spacing-thinner);
+
+  & .filter__label-title {
+    margin-bottom: var(--spacing-micro);
+    font-weight: 600;
+  }
+}
+
+.filter__title {
+  line-height: 2.5rem;
+  margin-bottom: var(--spacing-thin);
+}
+
+.filter__btn {
+  align-self: center;
+  margin-top: var(--spacing-broad);
+}
+
+/* Overlay pour l'effet tamisé */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  /* Fond semi-transparent */
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  z-index: 5;
+}
+
+/* Checkbox pour activer le filtre et l'overlay */
+
+.filter__hidden {
+  display: none;
+}
+
+#filter-toggle {
+  display: none;
+}
+
+#filter-toggle:checked~.overlay {
+  visibility: visible;
+  opacity: 1;
+}
+
+#filter-toggle:checked~.filter {
+  display: flex;
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Bouton de toggle pour le filtre */
+label[for="filter-toggle"] {
+  padding: var(--spacing-micro);
+  display: none;
+  cursor: pointer;
+  z-index: 15;
+}
+
+.menu-icon {
+  width: 30px;
+  height: 3px;
+  background: #000;
+  display: block;
+  margin: 5px 0;
+  transition: 0.3s;
+}
+
+/* Animation de l'icône lors du clic */
+#filter-toggle:checked+label .menu-icon:nth-child(2) {
+  transform: translateY(8px) rotate(45deg);
+}
+
+#filter-toggle:checked+label .menu-icon:nth-child(3) {
+  opacity: 0;
+}
+
+#filter-toggle:checked+label .menu-icon:nth-child(4) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+/* Désactiver le scroll */
+body.no-scroll {
+  overflow: hidden;
+}
+
+#filter-toggle:checked~body {
+  overflow: hidden;
+}
+
+/* Responsiveness pour mobile */
+@media (max-width: 600px) {
+  .filter {
+    min-width: 70vw;
+    position: relative;
+    top: var(--spacing-thin);
+    left: var(--spacing-thin);
+    margin: 0;
+    display: none;
+    visibility: hidden;
+    opacity: 0;
+    z-index: 10;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+
+  label[for="filter-toggle"] {
+    display: inline-block;
+    position: relative;
+    top: 10px;
+    left: 10px;
+    z-index: 15;
+    cursor: pointer;
+  }
+}

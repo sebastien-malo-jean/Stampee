@@ -1,0 +1,15 @@
+.littleCardGrid {
+    max-width: 100%;
+}
+
+.littleCardGrid__box {
+    max-width: 100dvw;
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    min-height: 420px;
+    object-fit: cover;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary);
+}

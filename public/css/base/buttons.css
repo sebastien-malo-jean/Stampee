@@ -1,0 +1,42 @@
+/*----------Liens----------*/
+a {
+  color: var(--couleur2);
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+/* .header__link,
+.footer__link {
+  padding: clamp(var(--spacing-micro), 50%, var(--spacing-thinnest));
+} */
+
+
+
+.btn {
+  background-color: var(--primary);
+  padding: var(--spacing-micro);
+  border-radius: var(--radius-sharper);
+  cursor: pointer;
+  color: var(--tertiary);
+  font-size: clamp(1.125rem, 0.875rem + 1.5vw, 1.875rem);
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.btn__CTA {
+  font-weight: 800;
+  color: var(--CTA);
+}
+
+.current__link {
+  color: var(--tertiary);
+}
+
+.stampeeChoice {
+  filter: invert(64%) sepia(12%) saturate(4660%) hue-rotate(2deg) brightness(115%) contrast(68%);
+}

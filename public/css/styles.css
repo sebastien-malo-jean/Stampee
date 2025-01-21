@@ -1,0 +1,18 @@
+/*----------Base----------*/
+@import "../css/base/reset.css";
+@import "../css/base/language.css";
+@import "../css/base/heading.css";
+@import "../css/base/images.css";
+@import "../css/base/buttons.css";
+@import "../css/base/styles.css";
+/*-------composants-------*/
+@import "../css/composants/header.css";
+@import "../css/composants/footer.css";
+@import "../css/composants/general_container.css";
+@import "../css/composants/filter.css";
+@import "../css/composants/card.css";
+@import "../css/composants/stampCard.css";
+@import "../css/composants/littleCard.css";
+@import "../css/composants/littleCardGrid.css";
+@import "../css/composants/newsletterCard.css";
+@import "../css/composants/profile.css";
