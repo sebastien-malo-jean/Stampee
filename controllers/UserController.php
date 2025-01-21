@@ -7,10 +7,10 @@ use App\Providers\View;
 use App\Providers\Validator;
 use App\Providers\Auth;
 class UserController {
-    public function __construct()
-    {
-        Auth::session();
-    }
+    // public function __construct()
+    // {
+    //     Auth::session();
+    // }
     public function create() {
         $privilege = new Privilege;
         $privileges = $privilege->select('privilege');
