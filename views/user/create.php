@@ -1,5 +1,5 @@
 {{ include ('layouts/header.php', {title:'Registration'})}}
-<div class="container">
+<div class="general_container">
     {% if errors is defined %}
     <div class="error">
         <ul>
