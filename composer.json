@@ -10,5 +10,8 @@
   "require": {
     "twig/twig": "^3.18",
     "phpmailer/phpmailer": "^6.9"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^11.5"
   }
 }
