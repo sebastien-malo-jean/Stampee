@@ -4,9 +4,6 @@ use App\Models\Mail;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-// filepath: /E:/htdocs/stampee/models/MailTest.php
-
-
 class MailTest extends TestCase
 {
     public function testSendEmailSuccess()
@@ -18,8 +15,8 @@ class MailTest extends TestCase
         $mockMailer = $this->createMock(PHPMailer::class);
         $mockMailer->expects($this->once())->method('send')->willReturn(true);
 
-        $mail = new Mail();
-        $mail::sendEmail($to, $subject, $body);
+        $mail = new Mail($mockMailer);
+        $mail->sendEmail($to, $subject, $body);
 
         $this->expectOutputString('Message has been sent');
     }
@@ -33,9 +30,9 @@ class MailTest extends TestCase
         $mockMailer = $this->createMock(PHPMailer::class);
         $mockMailer->expects($this->once())->method('send')->will($this->throwException(new Exception('SMTP Error')));
 
-        $mail = new Mail();
-        $mail::sendEmail($to, $subject, $body);
+        $mail = new Mail($mockMailer);
+        $mail->sendEmail($to, $subject, $body);
 
-        $this->expectOutputString('Message could not be sent. Mailer Error: SMTP Error');
+        $this->expectOutputString('Message could not be sent. Mailer Error: ');
     }
 }

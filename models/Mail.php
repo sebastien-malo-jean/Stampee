@@ -1,39 +1,46 @@
 <?php
-// filepath: /E:/htdocs/stampee/models/Mail.php
 
 namespace App\Models;
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-class Mail {
-    public static function sendEmail($to, $subject, $body) {
-        $mail = new PHPMailer(true);
+class Mail
+{
+    protected $mailer;
 
+    public function __construct(PHPMailer $mailer)
+    {
+        $this->mailer = $mailer;
+    }
+
+    public function sendEmail($to, $subject, $body)
+    {
         try {
             // Configuration du serveur SMTP
-            $mail->isSMTP();
-            $mail->Host = 'smtp.example.com'; // Remplacez par votre serveur SMTP
-            $mail->SMTPAuth = true;
-            $mail->Username = 'your_email@example.com'; // Remplacez par votre adresse email
-            $mail->Password = 'your_email_password'; // Remplacez par votre mot de passe
-            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-            $mail->Port = 587;
+            $this->mailer->isSMTP();
+            $this->mailer->Host = 'smtp.example.com'; // Remplacez par votre serveur SMTP
+            $this->mailer->SMTPAuth = true;
+            $this->mailer->Username = 'your_email@example.com'; // Remplacez par votre adresse email
+            $this->mailer->Password = 'your_email_password'; // Remplacez par votre mot de passe
+            $this->mailer->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+            $this->mailer->Port = 587;
 
             // Destinataires
-            $mail->setFrom('from@example.com', 'Mailer');
-            $mail->addAddress($to);
+            $this->mailer->setFrom('from@example.com', 'Mailer');
+            $this->mailer->addAddress($to);
 
             // Contenu de l'email
-            $mail->isHTML(true);
-            $mail->Subject = $subject;
-            $mail->Body    = $body;
-            $mail->AltBody = strip_tags($body);
+            $this->mailer->isHTML(true);
+            $this->mailer->Subject = $subject;
+            $this->mailer->Body    = $body;
+            $this->mailer->AltBody = strip_tags($body);
 
-            $mail->send();
-            echo 'Message has been sent';
+            if ($this->mailer->send()) {
+                echo 'Message has been sent';
+            }
         } catch (Exception $e) {
-            echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+            echo "Message could not be sent. Mailer Error: {$this->mailer->ErrorInfo}";
         }
     }
 }
