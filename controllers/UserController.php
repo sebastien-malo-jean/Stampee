@@ -6,7 +6,13 @@ use App\Models\Privilege;
 use App\Providers\View;
 use App\Providers\Validator;
 use App\Providers\Auth;
+use PHPMailer\PHPMailer\PHPMailer;
+use App\Models\Mail;
 class UserController {
+    public $user;
+    public $validator;
+    public $privilege;
+    public $mail;
     // public function __construct()
     // {
     //     Auth::session();
@@ -31,6 +37,16 @@ class UserController {
             $data['password'] = $user->hashPassword($data['password']);
             $insert = $user->insert($data);
             if($insert){
+                // Envoyer l'email de validation
+                $validationLink = User::generateValidationLink($insert); // $insert contient l'ID de l'utilisateur créé
+
+                $mailer = new PHPMailer(true);
+                $mail = new Mail($mailer);
+                $subject = "Bienvenue " . $data['name'] . " !";
+                $body = "Bonjour " . $data['name'] . ",\n\nCliquez sur le lien suivant pour valider votre email : $validationLink";
+
+                $mail->sendEmail($data['email'], $subject, $body);
+
                 return View::redirect('login');
             }else{
                 return View::render('error');

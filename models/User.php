@@ -1,6 +1,8 @@
 <?php
 namespace App\Models;
 use App\Models\CRUD;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
 class User extends CRUD{
     protected $table = "user";
@@ -31,6 +33,30 @@ class User extends CRUD{
     }else{
         return false;
     }
-}
+    }
+
+    public static function generateValidationLink($userId){
+        $token = bin2hex(random_bytes(16)); // Génère un token de validation
+        return "https://yourdomain.com/validate?user=$userId&token=$token";
+    }
+
+        public static function createUser($email, $name) {
+        // Logique pour créer un utilisateur dans la base de données
+        $userId = // ID de l'utilisateur créé
+
+        // Générer un lien de validation
+        $validationLink = self::generateValidationLink($userId);
+
+        // Envoyer l'email de validation
+        $mailer = new PHPMailer(true);
+        $mail = new Mail($mailer);
+        $subject = "Bienvenue $name !";
+        $body = "Bonjour $name,\n\nCliquez sur le lien suivant pour valider votre email : $validationLink";
+
+        $mail->sendEmail($email, $subject, $body);
+
+        // Retourner l'utilisateur créé ou d'autres informations nécessaires
+        return $userId;
+    }
 
 }

@@ -18,7 +18,7 @@ class MailTest extends TestCase
         $mail = new Mail($mockMailer);
         $mail->sendEmail($to, $subject, $body);
 
-        $this->expectOutputString('Message has been sent');
+        $this->expectOutputString('Le message à été envoyer avec succès!');
     }
 
     public function testSendEmailFailure()
@@ -33,6 +33,6 @@ class MailTest extends TestCase
         $mail = new Mail($mockMailer);
         $mail->sendEmail($to, $subject, $body);
 
-        $this->expectOutputString('Message could not be sent. Mailer Error: ');
+        $this->expectOutputString("Le message n'a pas pu être envoyé. Erreur du serveur SMTP: SMTP Error: ");
     }
 }

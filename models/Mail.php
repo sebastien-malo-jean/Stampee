@@ -37,10 +37,10 @@ class Mail
             $this->mailer->AltBody = strip_tags($body);
 
             if ($this->mailer->send()) {
-                echo 'Message has been sent';
+                echo 'Le message à été envoyer avec succès!';
             }
         } catch (Exception $e) {
-            echo "Message could not be sent. Mailer Error: {$this->mailer->ErrorInfo}";
+            echo "Le message n'a pas pu être envoyé. Erreur du serveur SMTP: SMTP Error: {$this->mailer->ErrorInfo}";
         }
     }
 }
