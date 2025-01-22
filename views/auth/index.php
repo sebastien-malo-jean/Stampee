@@ -1,24 +1,32 @@
-{{ include ('layouts/header.php', {title:'Connection'})}}
-<div class="general_container">
+{{ include ('layouts/header.php', {title:'Connexion'}) }}
+<div class="general-container">
+    <!-- Bloc pour les erreurs -->
     {% if errors is defined %}
-    <div class="error">
-        <ul>
+    <div class="form-container__error">
+        <ul class="form-container__error-list">
             {% for error in errors %}
-            <li>{{ error }}</li>
+            <li class="form-container__error-item">{{ error }}</li>
             {% endfor %}
         </ul>
     </div>
     {% endif %}
-    <form method="post">
-        <h2>Login</h2>
-        <label>Username
-            <input type="email" name="username" value="{{ user.username }}">
-        </label>
-        <label>Password
-            <input type="password" name="password">
-        </label>
-        <input type="submit" class="btn" value="login">
-    </form>
-    <a href="{{base}}/user/create" class="btn">new user</a>
+    <div class="form-container">
+        <!-- Formulaire de connexion -->
+        <form class="form" method="post">
+            <h2 class="form__title">Connexion</h2>
+
+            <label class="form__label">
+                Email
+                <input type="email" class="form__input" name="username" value="{{ user.username }}" required>
+            </label>
+
+            <label class="form__label">
+                Mot de passe
+                <input type="password" class="form__input" name="password" required>
+            </label>
+
+            <button type="submit" class="form__button">Connexion</button>
+        </form>
+    </div>
 </div>
-{{ include ('layouts/footer.php')}}
+{{ include ('layouts/footer.php') }}

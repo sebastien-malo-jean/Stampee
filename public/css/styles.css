@@ -8,7 +8,7 @@
 /*-------composants-------*/
 @import "../css/composants/header.css";
 @import "../css/composants/footer.css";
-@import "../css/composants/general_container.css";
+@import "../css/composants/form-container.css";
 @import "../css/composants/filter.css";
 @import "../css/composants/card.css";
 @import "../css/composants/stampCard.css";

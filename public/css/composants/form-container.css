@@ -1,0 +1,122 @@
+.general-container {
+    display: flex;
+    flex-direction: row-reverse;
+    gap: var(--spacing-broad);
+    justify-content: center;
+}
+
+.form-container {
+    background-color: var(--secondary);
+    border-radius: var(--radius-sharp);
+    border: 1px solid var(--dark);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    margin: 0;
+    max-width: 350px;
+    min-width: 300px;
+    padding: var(--spacing-thin);
+}
+
+.form-container__error {
+    box-sizing: border-box;
+    max-width: 350px;
+    margin-bottom: var(--spacing-thin);
+    padding: var(--spacing-nano);
+    color: var(--light);
+    border-radius: var(--radius-sharp);
+}
+
+.form-container__error-list {
+    margin: 0;
+    list-style: inside;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-thinner);
+}
+
+.form-container__error-item {
+    padding: var(--spacing-nano) var(--spacing-thinnest);
+    border-radius: 15px;
+    background-color: var(--CTA);
+    font-size: var(--font-shorter);
+    line-height: var(--line-height-tight);
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-thinner);
+}
+
+.form__title {
+    font-size: var(--font-tall);
+    text-align: center;
+    color: var(--primary);
+    margin-bottom: var(--spacing-thin);
+}
+
+.form__label {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-nano);
+    font-size: var(--font-current);
+    color: var(--dark);
+}
+
+.form__input,
+.form__select {
+    padding: var(--spacing-nano);
+    font-size: var(--font-current);
+    color: var(--dark);
+    border: 1px solid var(--dark);
+    border-radius: var(--radius-sharp);
+    background-color: var(--light);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    transition: border-color var(--duration-fast) ease;
+}
+
+.form__input:focus,
+.form__select:focus {
+    outline: none;
+    border-color: var(--CTA);
+    box-shadow: 0 0 0 2px rgba(220, 38, 60, 0.4);
+}
+
+.form__button {
+    align-self: center;
+    padding: var(--spacing-thinner) var(--spacing-thin);
+    font-size: var(--font-tall);
+    font-weight: bold;
+    color: var(--light);
+    background-color: var(--CTA);
+    border: none;
+    border-radius: var(--radius-sharp);
+    cursor: pointer;
+    transition: background-color var(--duration-fast) ease;
+}
+
+.form__button:hover {
+    background-color: var(--primary);
+}
+
+.form__button:active {
+    background-color: var(--tertiary);
+}
+
+@media (max-width: 768px) {
+    .general-container {
+        flex-direction: column;
+    }
+
+    .form-container {
+        padding: var(--spacing-thin);
+    }
+
+    .form__title {
+        font-size: var(--font-tallest);
+    }
+
+    .form__button {
+        font-size: var(--font-current);
+    }
+}

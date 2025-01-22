@@ -7,28 +7,22 @@
     <nav class='footer__nav'>
         <!-- Section Membre -->
         <div class="footer__nav-section">
-            <input type="checkbox" id="section1" class="accordion-checkbox">
+            <input type="radio" id="section1" name="accordion" class="accordion-radio">
             <label for="section1" class="footer__nav-section-title">Membre</label>
             <ul class='footer__nav-list'>
-                <li class='footer__nav-item'><a href='' class='footer__link'>Devenir Membre</a></li>
-                <li class='footer__nav-item'><a href='' class='footer__link'>Se connecter</a></li>
-                <li class='footer__nav-item'><a href='' class='footer__link'>Votre Profil</a></li>
-            </ul>
-        </div>
-
-        <!-- Section Timbres & Enchères -->
-        <div class="footer__nav-section">
-            <input type="checkbox" id="section3" class="accordion-checkbox">
-            <label for="section3" class="footer__nav-section-title">Timbres & Enchères</label>
-            <ul class='footer__nav-list'>
-                <li class='footer__nav-item'><a href='' class='footer__link'>Timbres</a></li>
-                <li class='footer__nav-item current__link'><a href='' class='footer__link'>Enchères</a></li>
+                {% if guest %}
+                <li class='footer__nav-item'><a href='{{base}}/login' class='footer__link'>Connection</a></li>
+                <li class='footer__nav-item'><a href='{{base}}/user/create' class='footer__link'>Insciption</a></li>
+                {% else %}
+                <li class='footer__nav-item'><a href='' class='footer__link'>Profil</a></li>
+                <li class='footer__nav-item'><a href='{{base}}/logout' class='footer__link'>Déconnection</a></li>
+                {% endif %}
             </ul>
         </div>
 
         <!-- Section À propos -->
         <div class="footer__nav-section">
-            <input type="checkbox" id="section2" class="accordion-checkbox">
+            <input type="radio" id="section2" name="accordion" class="accordion-radio">
             <label for="section2" class="footer__nav-section-title">À propos</label>
             <ul class='footer__nav-list'>
                 <li class='footer__nav-item'><a href='' class='footer__link'>À propos de Lord Reginald Stampee III</a>
@@ -39,9 +33,19 @@
             </ul>
         </div>
 
+        <!-- Section Timbres & Enchères -->
+        <div class="footer__nav-section">
+            <input type="radio" id="section3" name="accordion" class="accordion-radio">
+            <label for="section3" class="footer__nav-section-title">Timbres & Enchères</label>
+            <ul class='footer__nav-list'>
+                <li class='footer__nav-item'><a href='' class='footer__link'>Timbres</a></li>
+                <li class='footer__nav-item'><a href='' class='footer__link'>Enchères</a></li>
+            </ul>
+        </div>
+
         <!-- Section Fonctionnalités -->
         <div class="footer__nav-section">
-            <input type="checkbox" id="section4" class="accordion-checkbox">
+            <input type="radio" id="section4" name="accordion" class="accordion-radio">
             <label for="section4" class="footer__nav-section-title">Fonctionnalités</label>
             <ul class='footer__nav-list'>
                 <li class='footer__nav-item'><a href='' class='footer__link'>Fonctionnement de la plateforme</a></li>
@@ -54,7 +58,7 @@
 
         <!-- Section Contact -->
         <div class="footer__nav-section">
-            <input type="checkbox" id="section5" class="accordion-checkbox">
+            <input type="radio" id="section5" name="accordion" class="accordion-radio">
             <label for="section5" class="footer__nav-section-title">Contact</label>
             <ul class='footer__nav-list'>
                 <li class='footer__nav-item'><a href='' class='footer__link'>Contacter le webmestre</a></li>

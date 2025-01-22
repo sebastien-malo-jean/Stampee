@@ -1,5 +1,8 @@
+/* Footer Styles */
 .footer {
+  position: relative;
   min-width: 100%;
+  min-height: 410px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -7,57 +10,106 @@
   background-color: var(--dark);
   color: var(--light);
   gap: var(--spacing-thinnest);
+  justify-content: space-between;
+}
+
+.footer:hover {
+  content: "";
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
 }
 
 .footer__nav {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  /* 5 colonnes égales */
+  /* 5 columns layout */
   gap: var(--spacing-thin);
   max-width: 100%;
+  position: relative;
+  z-index: 2;
+  /* Above the overlay */
 }
 
 .footer__nav-section {
-  border: 1px solid var(--light);
+  border-radius: var(--radius-sharp);
+  position: relative;
+  /* Fond par défaut */
   padding: var(--spacing-micro);
-  background-color: var(--dark);
+  overflow: hidden;
+  transition: background-color 0.3s ease;
+  /* Transition fluide */
 }
 
-.accordion-checkbox {
+.accordion-radio {
   display: none;
-  /* Masque l'input checkbox */
+  /* Hide radio buttons */
 }
 
 .footer__nav-section-title {
-  font-size: large;
+  border-radius: var(--radius-sharp);
+  font-size: 1.2rem;
+  font-weight: bold;
   cursor: pointer;
-  display: block;
+  display: flex;
+  justify-content: space-between;
+  /* Space for the chevron */
+  align-items: center;
   padding: var(--spacing-thin);
   background-color: var(--dark);
   color: var(--light);
   border-bottom: 1px solid var(--light);
+  transition: background-color 0.3s, color 0.3s;
 }
 
 .footer__nav-section-title:hover {
   background-color: var(--light);
   color: var(--dark);
-  transition: background-color 0.3s, color 0.3s;
+}
+
+.footer__nav-section-title::after {
+  content: "▼";
+  /* Chevron icon */
+  font-size: 0.8rem;
+  margin-left: 8px;
+  transition: transform 0.3s ease;
+}
+
+.accordion-radio:checked+.footer__nav-section-title::after {
+  transform: rotate(450deg);
+  scale: 1.2;
+  /* Rotate chevron when active */
 }
 
 .footer__nav-list {
+  display: flex;
+  flex-direction: column;
   max-height: 0;
-  /* Cacher les listes par défaut */
   overflow: hidden;
-  transition: max-height 0.3s ease-out;
+  transition: max-height 0.5s ease, opacity 0.5s ease;
+  opacity: 0;
+  /* Initially hidden */
 }
 
-.accordion-checkbox:checked~.footer__nav-list {
-  max-height: 300px;
-  /* Ajuster selon la taille maximale de chaque liste */
+.accordion-radio:checked~.footer__nav-list {
+  max-height: 200px;
+  /* Limit visible height */
+  opacity: 1;
+  /* Make visible */
+  overflow-y: auto;
+  /* Add scroll if content exceeds */
 }
+
+.footer__nav-section:has(.accordion-radio:checked) {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+
 
 .footer__nav-item {
-  line-height: var(--spacing-thinner);
   padding: var(--spacing-thinner);
 }
 
@@ -71,15 +123,62 @@
 }
 
 .footer__copyright {
+  /* position: relative;
+    bottom: -82px;
+    right: 0;
+    left: 0; */
   display: flex;
   justify-content: center;
+  align-items: center;
   padding-top: var(--spacing-thin);
   border-top: 1px solid var(--light);
+  font-size: 0.9rem;
+  z-index: 2;
+  background-color: var(--dark);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1200px) {
+  .footer__nav {
+    grid-template-columns: repeat(3, 1fr);
+    /* 3 columns for large screens */
+  }
+}
+
+@media (max-width: 900px) {
+  .footer__nav {
+    grid-template-columns: repeat(2, 1fr);
+    /* 2 columns for medium screens */
+  }
 }
 
 @media (max-width: 600px) {
   .footer__nav {
     grid-template-columns: 1fr;
-    /* Une seule colonne pour petits écrans */
+    /* 1 column for small screens */
   }
+
+  .footer__nav-section-title {
+    font-size: 1rem;
+  }
+
+  .footer {
+    padding: var(--spacing-thin);
+    min-height: 300px;
+    /* Reduce height for smaller screens */
+  }
+}
+
+/* Optional Scrollbar Customization */
+.footer__nav-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.footer__nav-list::-webkit-scrollbar-thumb {
+  background: var(--light);
+  border-radius: 10px;
+}
+
+.footer__nav-list::-webkit-scrollbar-thumb:hover {
+  background: var(--light-hover);
 }

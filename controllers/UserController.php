@@ -22,7 +22,7 @@ class UserController {
         $validator->field('name', $data['name'])->min(2)->max(50);
         $validator->field('username', $data['username'])->unique('User')->email()->min(2)->max(50);
         $validator->field('password', $data['password'])->min(6)->max(20);
-        $validator->field('email', $data['email'])->required()->email()->max(100);
+        $validator->field('email', $data['email'])->required()->email()->max(100)->matches($data['username'], $data['username']);
         $validator->field('privile_id', $data['privilege_id'])->required()->int();
 
         if($validator->isSuccess()){
