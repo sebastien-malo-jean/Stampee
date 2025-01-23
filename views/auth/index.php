@@ -27,6 +27,7 @@
 
             <button type="submit" class="form__button">Connexion</button>
         </form>
+        <a href="{{base}}/reset_password" class="form__link">Mot de passe oublié ?</a>
     </div>
 </div>
 {{ include ('layouts/footer.php') }}

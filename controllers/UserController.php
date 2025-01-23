@@ -5,22 +5,21 @@ use App\Models\User;
 use App\Models\Privilege;
 use App\Providers\View;
 use App\Providers\Validator;
-use App\Providers\Auth;
-use PHPMailer\PHPMailer\PHPMailer;
-use App\Models\Mail;
+
 class UserController {
     public $user;
     public $validator;
     public $privilege;
-    public $mail;
-    // public function __construct()
-    // {
-    //     Auth::session();
-    // }
+    public $view;
+
+    public function __construct($view = null) {
+        $this->view = $view ?: new View();
+    }
+
     public function create() {
         $privilege = new Privilege;
         $privileges = $privilege->select('privilege');
-        return View::render('user/create', ['privileges'=>$privileges]);
+        return $this->view->render('user/create', ['privileges'=>$privileges]);
     }
 
     public function store($data = []) {
@@ -37,25 +36,17 @@ class UserController {
             $data['password'] = $user->hashPassword($data['password']);
             $insert = $user->insert($data);
             if($insert){
-                // Envoyer l'email de validation
-                $validationLink = User::generateValidationLink($insert); // $insert contient l'ID de l'utilisateur créé
-
-                $mailer = new PHPMailer(true);
-                $mail = new Mail($mailer);
-                $subject = "Bienvenue " . $data['name'] . " !";
-                $body = "Bonjour " . $data['name'] . ",\n\nCliquez sur le lien suivant pour valider votre email : $validationLink";
-
-                $mail->sendEmail($data['email'], $subject, $body);
-
-                return View::redirect('login');
+                echo "Redirecting to login...";
+                $this->view->redirect('login');
+                exit();
             }else{
-                return View::render('error');
+                return $this->view->render('error');
             }
         }else{
             $errors = $validator->getErrors();
             $privilege = new Privilege;
             $privileges = $privilege->select('privilege');
-            return View::render('user/create', ['errors'=>$errors, 'user'=>$data, 'privileges'=>$privileges]);
+            return $this->view->render('user/create', ['errors'=>$errors, 'user'=>$data, 'privileges'=>$privileges]);
         }
     }
 }

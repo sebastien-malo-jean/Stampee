@@ -15,6 +15,11 @@
     max-width: 350px;
     min-width: 300px;
     padding: var(--spacing-thin);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-thin);
 }
 
 .form-container__error {

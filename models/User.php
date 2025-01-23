@@ -35,28 +35,32 @@ class User extends CRUD{
     }
     }
 
-    public static function generateValidationLink($userId){
-        $token = bin2hex(random_bytes(16)); // Génère un token de validation
-        return "https://yourdomain.com/validate?user=$userId&token=$token";
+    public function checkEmail($email){
+    $user = $this->unique('email', $email);
+    if($user){
+        $mail = new PHPMailer(true);
+        try {
+            $mail->isSMTP();
+            $mail->Host = 'sandbox.smtp.mailtrap.io'; // Utilisez le serveur SMTP de Mailtrap
+            $mail->SMTPAuth = true;
+            $mail->Username = '2e62c38040480c'; // Remplacez par votre nom d'utilisateur Mailtrap
+            $mail->Password = '9b15b292b94d06'; // Remplacez par votre mot de passe Mailtrap
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+            $mail->Port = 2525;
+            $mail->setFrom('from@example.com'); // Remplacez par une adresse email fictive
+            $mail->addAddress($email);
+            $mail->isHTML(true);
+            $mail->Subject = 'Reset Password';
+            $mail->Body = 'Click on the link to reset your password';
+            $mail->AltBody = 'Click on the link to reset your password';
+            $mail->send();
+            return true;
+        } catch (Exception $e) {
+            echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+            return false;
+        }
+    } else {
+        return false;
     }
-
-        public static function createUser($email, $name) {
-        // Logique pour créer un utilisateur dans la base de données
-        $userId = // ID de l'utilisateur créé
-
-        // Générer un lien de validation
-        $validationLink = self::generateValidationLink($userId);
-
-        // Envoyer l'email de validation
-        $mailer = new PHPMailer(true);
-        $mail = new Mail($mailer);
-        $subject = "Bienvenue $name !";
-        $body = "Bonjour $name,\n\nCliquez sur le lien suivant pour valider votre email : $validationLink";
-
-        $mail->sendEmail($email, $subject, $body);
-
-        // Retourner l'utilisateur créé ou d'autres informations nécessaires
-        return $userId;
-    }
-
+}
 }
