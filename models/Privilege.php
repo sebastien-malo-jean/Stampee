@@ -2,8 +2,8 @@
 namespace App\Models;
 use App\Models\CRUD;
 
-class Privilege extends CRUD implements PrivilegeInterface{
-    protected $table = "privilege";
+class Privilege extends CRUD {
+    protected $table = "Privilege";
     protected $primaryKey = "id";
 
 }

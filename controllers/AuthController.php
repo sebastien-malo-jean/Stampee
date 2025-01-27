@@ -62,7 +62,7 @@ class AuthController {
             }
         }else{
             $errors = $validator->getErrors();
-            return View::render('auth/reset_password', ['errors'=>$errors, 'user'=>$data]);
+            return View::render('auth/reset_password', ['errors'=>$errors, 'User'=>$data]);
         }
     }
 }

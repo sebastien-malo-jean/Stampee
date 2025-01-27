@@ -5,7 +5,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 class User extends CRUD{
-    protected $table = "user";
+    protected $table = "User";
     protected $primaryKey = "id";
     protected $fillable = ['name', 'username', 'password', 'email', 'privilege_id'];
 
