@@ -55,7 +55,7 @@
 
             <!-- Description -->
             <label class="form__label">
-                Certifié
+                Description
                 <input type="text" class="form__input" name="description" value="{{ stamp.description|default('') }}">
             </label>
 
@@ -74,6 +74,12 @@
                 <select class="form__select" name="origin_id">
                     <option value="">-- Sélectionner un pays --</option>
                     <!-- faire logique pour les pays -->
+                    {% for origin in origins %}
+                    <option value="{{ origin.id }}"
+                        {% if stamp.origin_id is defined and stamp.origin_id == origin.id %}selected{% endif %}>
+                        {{ origin.name }}
+                    </option>
+                    {% endfor %}
                 </select>
             </label>
 

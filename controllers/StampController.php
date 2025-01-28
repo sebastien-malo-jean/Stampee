@@ -38,16 +38,67 @@ class StampController {
 
         if ($validator->isSuccess()) {
             $stamp = new Stamp;
-            $insert = $stamp->insert($data);
-            if ($insert) {
-                return $this->view->redirect('stamp/show?id='.$insert);
-            } else {
-                return $this->view->render('error');
+            $stampId = $stamp->insert($data);
+
+            if ($stampId) {
+                $uploadDir = BASE .'/public/img/uploads/';
+                if (!is_dir($uploadDir)) {
+                mkdir($uploadDir, 0777, true);
             }
+            
+             $imageModel = new \App\Models\Image();
+
+             if (!empty($_FILES['image_principale']['name'])) {
+                $tmpName = $_FILES['image_principale']['tmp_name'];
+                $filesName = $_FILES['image_principale']['name'];
+
+                $destination = $uploadDir . $filesName;
+
+                if (move_uploaded_file($tmpName, $destination)) {
+                    $imageModel->insert([
+                        'stamp_id'   => $stampId,
+                        'url'        => 'uploads/' . $filesName,
+                        'is_primary' => 1,
+                    ]);
+                }
+            }
+
+            if (!empty($_FILES['images_supplementaires']['name'][0])) {
+                foreach ($_FILES['images_supplementaires']['name'] as $index => $name) {
+                    if (!empty($name)) {
+                        $tmpName    = $_FILES['images_supplementaires']['tmp_name'][$index];
+                        $fileName   = basename($name);
+                        $destination = $uploadDir . '/' . $fileName;
+
+                        if (move_uploaded_file($tmpName, $destination)) {
+                            $imageModel->insert([
+                                'stamp_id'   => $stampId,
+                                'url'        => 'uploads/' . $fileName,
+                                'is_primary' => 0,
+                            ]);
+                        }
+                    }
+                }
+            }
+            return $this->view->redirect('stamp/show?id=' . $stampId);
+
         } else {
-            $errors = $validator->getErrors();
-            $inputs = $_POST;
-            return $this->view->render('stamp/create', ['errors'=>$errors, 'inputs'=>$inputs]);
+            return $this->view->render('error');
         }
+    } else {
+        $errors = $validator->getErrors();
+        $inputs = $_POST;
+        return $this->view->render('stamp/create', ['errors' => $errors, 'inputs' => $inputs]);
+    }
+        //     if ($insert) {
+        //         return $this->view->redirect('stamp/show?id='.$insert);
+        //     } else {
+        //         return $this->view->render('error');
+        //     }
+        // } else {
+        //     $errors = $validator->getErrors();
+        //     $inputs = $_POST;
+        //     return $this->view->render('stamp/create', ['errors'=>$errors, 'inputs'=>$inputs]);
+        // }
     }
 }
