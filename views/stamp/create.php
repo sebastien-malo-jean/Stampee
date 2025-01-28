@@ -62,9 +62,15 @@
             <!-- Condition -->
             <label class="form__label">
                 Condition
-                <select class="form__select" name="condition_id">
+                <select class="form__select" name="stamp_state_id">
                     <option value="">-- Sélectionner une condition --</option>
                     <!-- faire logique pour la condition -->
+                    {% for s in stamp_states %}
+                    <option value="{{ s.id }}"
+                        {% if stamp.stamp_state_id is defined and stamp.stamp_state_id == s.id %}selected{% endif %}>
+                        {{ s.state }}
+                    </option>
+                    {% endfor %}
                 </select>
             </label>
 
@@ -74,12 +80,13 @@
                 <select class="form__select" name="origin_id">
                     <option value="">-- Sélectionner un pays --</option>
                     <!-- faire logique pour les pays -->
-                    {% for origin in origins %}
-                    <option value="{{ origin.id }}"
-                        {% if stamp.origin_id is defined and stamp.origin_id == origin.id %}selected{% endif %}>
-                        {{ origin.name }}
+                    {% for o in origins %}
+                    <option value="{{ o.id }}"
+                        {% if stamp.origin_id is defined and stamp.origin_id == o.id %}selected{% endif %}>
+                        {{ o.country }}
                     </option>
                     {% endfor %}
+
                 </select>
             </label>
 
@@ -87,8 +94,14 @@
             <label class="form__label">
                 Couleur(s)
                 <select class="form__select" name="color_id">
-                    <option value="">-- Sélectionner une condition --</option>
+                    <option value="">-- Sélectionner une couleur --</option>
                     <!-- faire logique pour la couleur -->
+                    {% for c in colors %}
+                    <option value="{{ c.id }}"
+                        {% if stamp.color_id is defined and stamp.color_id == c.id %}selected{% endif %}>
+                        {{ c.color_name }}
+                    </option>
+                    {% endfor %}
                 </select>
             </label>
 
@@ -106,7 +119,7 @@
 
             <!-- user_id -->
             <label class="form__label">
-                <input type="text" class="form__input" name="user_id" value="{{ user_id }}" readonly>
+                <input type="text" class="form__input" name="user_id" value="{{ user_id }}">
             </label>
 
             <!-- Bouton de soumission -->

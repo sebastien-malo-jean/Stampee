@@ -3,6 +3,11 @@
 namespace App\Controllers;
 
 use App\Models\Stamp;
+use App\Models\Image;
+use App\Models\Origin;
+use App\Models\Stamp_state;
+use App\Models\Color;
+use App\Models\User;
 use App\Providers\View;
 use App\Providers\Auth;
 use App\Providers\Validator;
@@ -20,7 +25,13 @@ class StampController {
         if(!Auth::session()){
             return $this->view->redirect('login');
         }
-        return $this->view->render('stamp/create');
+        $origin = new Origin();
+        $origins = $origin->select('country');
+        $stamp_state = new Stamp_state();
+        $stamp_states = $stamp_state->select('state');
+        $color = new Color();
+        $colors = $color->select('color_name');
+        return $this->view->render('stamp/create',['origins'=>$origins, 'stamp_states'=>$stamp_states, 'colors'=>$colors]);
     }
 
     public function store($data = []) {
@@ -31,7 +42,7 @@ class StampController {
         $validator->field('dimensions', $data['dimensions'])->required();
         $validator->field('certified', $data['certified'])->required();
         $validator->field('description', $data['description'])->required();
-        $validator->field('condition_id', $data['condition_id'])->required()->int();
+        $validator->field('stamp_state_id', $data['stamp_state_id'])->required()->int();
         $validator->field('origin_id', $data['origin_id'])->required()->int();
         $validator->field('color_id', $data['color_id'])->required()->int();
         $validator->field('user_id', $data['user_id'])->required()->int();
@@ -46,7 +57,7 @@ class StampController {
                 mkdir($uploadDir, 0777, true);
             }
             
-             $imageModel = new \App\Models\Image();
+             $imageModel = new Image();
 
              if (!empty($_FILES['image_principale']['name'])) {
                 $tmpName = $_FILES['image_principale']['tmp_name'];
@@ -90,15 +101,6 @@ class StampController {
         $inputs = $_POST;
         return $this->view->render('stamp/create', ['errors' => $errors, 'inputs' => $inputs]);
     }
-        //     if ($insert) {
-        //         return $this->view->redirect('stamp/show?id='.$insert);
-        //     } else {
-        //         return $this->view->render('error');
-        //     }
-        // } else {
-        //     $errors = $validator->getErrors();
-        //     $inputs = $_POST;
-        //     return $this->view->render('stamp/create', ['errors'=>$errors, 'inputs'=>$inputs]);
-        // }
+
     }
 }
