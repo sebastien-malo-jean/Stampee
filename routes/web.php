@@ -23,3 +23,5 @@ Route::post('/login', 'AuthController@store');
 Route::get('/logout', 'AuthController@delete');
 Route::get('/reset_password', 'AuthController@resetPassword');
 Route::post('/reset_password', 'AuthController@resetPasswordStore');
+
+Route::get('/stamp/create', 'StampController@create');
