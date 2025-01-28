@@ -1,4 +1,5 @@
 {{ include ('layouts/header.php', {title:'Inscription'})}}
+
 <div class="general-container">
     <!-- Bloc pour les erreurs -->
     {% if errors is defined %}

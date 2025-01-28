@@ -12,7 +12,7 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     box-sizing: border-box;
     margin: 0;
-    max-width: 350px;
+    flex-basis: 350px;
     min-width: 300px;
     padding: var(--spacing-thin);
     display: flex;
@@ -71,13 +71,15 @@
 .form__input,
 .form__select {
     padding: var(--spacing-nano);
-    font-size: var(--font-current);
     color: var(--dark);
     border: 1px solid var(--dark);
     border-radius: var(--radius-sharp);
     background-color: var(--light);
     box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
     transition: border-color var(--duration-fast) ease;
+    flex-grow: 1;
+    flex-basis: 100%;
+    text-overflow: ellipsis;
 }
 
 .form__input:focus,
@@ -121,7 +123,7 @@
         font-size: var(--font-tallest);
     }
 
-    .form__button {
+    /* .form__button {
         font-size: var(--font-current);
-    }
+    } */
 }
