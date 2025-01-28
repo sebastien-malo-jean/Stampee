@@ -119,7 +119,9 @@
 
             <!-- user_id -->
             <label class="form__label">
-                <input type="text" class="form__input" name="user_id" value="{{ user_id }}">
+                {{ user.id }}
+                <input type="text" class="form__input" name="user_id" value="{{ user }}" readonly
+                    placeholder="{{ user }}">
             </label>
 
             <!-- Bouton de soumission -->

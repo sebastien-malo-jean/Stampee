@@ -7,7 +7,6 @@ use App\Models\Image;
 use App\Models\Origin;
 use App\Models\Stamp_state;
 use App\Models\Color;
-use App\Models\User;
 use App\Providers\View;
 use App\Providers\Auth;
 use App\Providers\Validator;
@@ -25,13 +24,16 @@ class StampController {
         if(!Auth::session()){
             return $this->view->redirect('login');
         }
+        
+        $user = Auth::user();
+
         $origin = new Origin();
         $origins = $origin->select('country');
         $stamp_state = new Stamp_state();
         $stamp_states = $stamp_state->select('state');
         $color = new Color();
         $colors = $color->select('color_name');
-        return $this->view->render('stamp/create',['origins'=>$origins, 'stamp_states'=>$stamp_states, 'colors'=>$colors]);
+        return $this->view->render('stamp/create',['origins'=>$origins, 'stamp_states'=>$stamp_states, 'colors'=>$colors, 'user'=>$user]);
     }
 
     public function store($data = []) {
@@ -52,7 +54,9 @@ class StampController {
             $stampId = $stamp->insert($data);
 
             if ($stampId) {
-                $uploadDir = BASE .'/public/img/uploads/';
+                $uploadDir = $_SERVER['DOCUMENT_ROOT'] . ASSET .'img/uploads/';
+                var_dump($uploadDir);
+                // exit;
                 if (!is_dir($uploadDir)) {
                 mkdir($uploadDir, 0777, true);
             }
@@ -62,13 +66,18 @@ class StampController {
              if (!empty($_FILES['image_principale']['name'])) {
                 $tmpName = $_FILES['image_principale']['tmp_name'];
                 $filesName = $_FILES['image_principale']['name'];
-
+                var_dump($tmpName);
+                var_dump($filesName);
+                
                 $destination = $uploadDir . $filesName;
+
+                var_dump($destination);
+                // exit;
 
                 if (move_uploaded_file($tmpName, $destination)) {
                     $imageModel->insert([
                         'stamp_id'   => $stampId,
-                        'url'        => 'uploads/' . $filesName,
+                        'url'        => ASSET .'img/uploads/' . $filesName,
                         'is_primary' => 1,
                     ]);
                 }
@@ -84,14 +93,14 @@ class StampController {
                         if (move_uploaded_file($tmpName, $destination)) {
                             $imageModel->insert([
                                 'stamp_id'   => $stampId,
-                                'url'        => 'uploads/' . $fileName,
+                                'url'        => ASSET .'img/uploads/' . $fileName,
                                 'is_primary' => 0,
                             ]);
                         }
                     }
                 }
             }
-            return $this->view->redirect('stamp/show?id=' . $stampId);
+            return $this->view->redirect('stamp/edit?id=' . $stampId);
 
         } else {
             return $this->view->render('error');

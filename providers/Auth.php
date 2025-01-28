@@ -10,4 +10,12 @@ class Auth {
            return view::redirect('login');
         }
       }
+
+    static public function user(){
+        if(isset($_SESSION['user_id'])){
+            return $_SESSION['user_id'];
+        }else{
+            return view::redirect('login');
+        }
+    }
 }

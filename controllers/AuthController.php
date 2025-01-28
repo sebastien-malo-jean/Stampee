@@ -65,4 +65,5 @@ class AuthController {
             return View::render('auth/reset_password', ['errors'=>$errors, 'User'=>$data]);
         }
     }
+
 }
