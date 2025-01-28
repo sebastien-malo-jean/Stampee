@@ -27,13 +27,13 @@
             <!-- Date de création -->
             <label class="form__label">
                 Date de création
-                <input type="date" class="form__input" name="date" value="{{ stamp.date_de_creation|default('') }}">
+                <input type="date" class="form__input" name="date" value="{{ stamp.date|default('') }}">
             </label>
 
             <!-- Tirage -->
             <label class="form__label">
                 Tirage
-                <input type="number" class="form__input" name="tirage" value="{{ stamp.tirage|default('') }}">
+                <input type="number" class="form__input" name="print_run" value="{{ stamp.print_run|default('') }}">
             </label>
 
             <!-- Dimensions -->
@@ -96,6 +96,11 @@
             <label class="form__label">
                 Images supplémentaires
                 <input type="file" class="form__input" name="images_supplementaires[]" multiple>
+            </label>
+
+            <!-- user_id -->
+            <label class="form__label">
+                <input type="text" class="form__input" name="user_id" value="{{ user_id }}" readonly>
             </label>
 
             <!-- Bouton de soumission -->
