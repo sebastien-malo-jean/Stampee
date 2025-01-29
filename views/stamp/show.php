@@ -27,15 +27,33 @@
                     </div>
                     <div class='stampCard__details-box'>
                         <p class='stampCard__details-box--label'>Couleur(s)</p>
-                        <p class='stampCard__details-box-detail'>{{stamp.color_id}}</p>
+                        <p class='stampCard__details-box-detail'>
+                            {% for color in colors %}
+                            {% if loop.index == stamp.color_id %}
+                            {{ color.name }}
+                            {% endif %}
+                            {% endfor %}
+                        </p>
                     </div>
                     <div class='stampCard__details-box'>
                         <p class='stampCard__details-box--label'>Pays d'origine</p>
-                        <p class='stampCard__details-box-detail'>{{stamp.origin_id}}</p>
+                        <p class='stampCard__details-box-detail'>
+                            {% for origin in origins %}
+                            {% if origin.id == stamp.origin_id %}
+                            {{ origin.country }}
+                            {% endif %}
+                            {% endfor %}
+                        </p>
                     </div>
                     <div class='stampCard__details-box'>
                         <p class='stampCard__details-box--label'>Condition</p>
-                        <p class='stampCard__details-box-detail'>{{stamp.stamp_state_id}}</p>
+                        <p class='stampCard__details-box-detail'>
+                            {% for stamp_state in stamp_states %}
+                            {% if stamp_state.id == stamp.stamp_state_id %}
+                            {{ stamp_state.state }}
+                            {% endif %}
+                            {% endfor %}
+                        </p>
                     </div>
                     <div class='stampCard__details-box'>
                         <p class='stampCard__details-box--label'>Tirage</p>

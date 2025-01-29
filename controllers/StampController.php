@@ -131,8 +131,14 @@ class StampController
             $images = $image->selectImagesByStampId($data['id']);
             $stamp = new Stamp;
             $selectId = $stamp->selectId($data['id']);
+            $color = new Color();
+            $colors = $color->getColors();
+            $origin = new Origin();
+            $origins = $origin->getOrigins();
+            $stamp_state = new Stamp_state();
+            $stamp_states = $stamp_state->getStates();
             if ($selectId) {
-                return $this->view->render('stamp/show', ['stamp' => $selectId, 'images' => $images, 'user' => $user]);
+                return $this->view->render('stamp/show', ['stamp' => $selectId, 'images' => $images, 'user' => $user, 'colors' => $colors, 'origins' => $origins, 'stamp_states' => $stamp_states]);
             } else {
                 return $this->view->render('error');
             }
