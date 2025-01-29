@@ -31,11 +31,11 @@ class StampController
         $user = Auth::user();
 
         $origin = new Origin();
-        $origins = $origin->select('country');
+        $origins = $origin->getOrigins();
         $stamp_state = new Stamp_state();
-        $stamp_states = $stamp_state->select('state');
+        $stamp_states = $stamp_state->getStampStates('state');
         $color = new Color();
-        $colors = $color->select('name');
+        $colors = $color->getColors();
         return $this->view->render('stamp/create', ['origins' => $origins, 'stamp_states' => $stamp_states, 'colors' => $colors, 'user' => $user]);
     }
 
@@ -58,57 +58,30 @@ class StampController
             $stampId = $stamp->insert($data);
 
             if ($stampId) {
-                $uploadDir = $_SERVER['DOCUMENT_ROOT'] . ASSET . 'img/uploads/';
-                if (!is_dir($uploadDir)) {
-                    mkdir($uploadDir, 0777, true);
-                }
-
                 $imageModel = new Image();
 
                 if (!empty($_FILES['image_principale']['name'])) {
-                    $tmpName = $_FILES['image_principale']['tmp_name'];
-                    $originalName = $_FILES['image_principale']['name'];
-                    // $userId = $data['user_id'];
-                    $uploadOk = 1;
-                    $fileName = $stampId . '_' . $originalName;
-
-                    $destination = $uploadDir . $fileName;
-
-                    $check = getimagesize($tmpName);
-                    if ($check !== false) {
-                        echo "File is an image - " . $check["mime"] . ".";
-                        $uploadOk = 1;
-                    } else {
-                        echo "File is not an image.";
-                        $uploadOk = 0;
+                    // Supprimer l'ancienne image principale avant d'ajouter la nouvelle
+                    $existingImage = $imageModel->selectPrimaryImageByStampId($stampId);
+                    if ($existingImage) {
+                        $oldImagePath = $_SERVER['DOCUMENT_ROOT'] . $existingImage['url'];
+                        if (file_exists($oldImagePath)) {
+                            unlink($oldImagePath);
+                        }
+                        $imageModel->delete($existingImage['id']);
                     }
-                    if (move_uploaded_file($tmpName, $destination)) {
-                        $imageModel->insert([
-                            'stamp_id'   => $stampId,
-                            'name' => $originalName,
-                            'url'        => ASSET . 'img/uploads/' . $fileName,
-                            'is_primary' => 1,
-                        ]);
-                    }
+
+                    $this->uploadImage($_FILES['image_principale'], $stampId, true);
                 }
 
                 if (!empty($_FILES['images_supplementaires']['name'][0])) {
                     foreach ($_FILES['images_supplementaires']['name'] as $index => $name) {
                         if (!empty($name)) {
-                            $tmpName    = $_FILES['images_supplementaires']['tmp_name'][$index];
-                            $originalName   = basename($name);
-                            // $userId     = $data['user_id'];
-                            $fileName   = $stampId . '_' . $originalName;
-                            $destination = $uploadDir . '/' . $fileName;
-
-                            if (move_uploaded_file($tmpName, $destination)) {
-                                $imageModel->insert([
-                                    'stamp_id'   => $stampId,
-                                    'name'       => $originalName,
-                                    'url'        => ASSET . 'img/uploads/' . $fileName,
-                                    'is_primary' => 0,
-                                ]);
-                            }
+                            $file = [
+                                'name' => time() . '_' . $name, // Assurer un nom unique
+                                'tmp_name' => $_FILES['images_supplementaires']['tmp_name'][$index]
+                            ];
+                            $this->uploadImage($file, $stampId, false);
                         }
                     }
                 }
@@ -136,7 +109,7 @@ class StampController
             $origin = new Origin();
             $origins = $origin->getOrigins();
             $stamp_state = new Stamp_state();
-            $stamp_states = $stamp_state->getStates();
+            $stamp_states = $stamp_state->getStampStates();
             if ($selectId) {
                 return $this->view->render('stamp/show', ['stamp' => $selectId, 'images' => $images, 'user' => $user, 'colors' => $colors, 'origins' => $origins, 'stamp_states' => $stamp_states]);
             } else {
@@ -167,82 +140,55 @@ class StampController
         return $this->view->render('error');
     }
 
-public function update($data = [], $get = []) {
-    if (isset($get['id']) && $get['id'] != null) {
-        // Validation des données
-        $validator = new Validator;
-        $validator->field('name', $data['name'])->min(2)->max(50);
-        $validator->field('date', $data['date'])->required();
-        $validator->field('print_run', $data['print_run'])->required()->int();
-        $validator->field('dimensions', $data['dimensions'])->required();
-        $validator->field('certified', $data['certified'])->required();
-        $validator->field('description', $data['description'])->required();
-        $validator->field('stamp_state_id', $data['stamp_state_id'])->required()->int();
-        $validator->field('origin_id', $data['origin_id'])->required()->int();
-        $validator->field('color_id', $data['color_id'])->required()->int();
-        $validator->field('user_id', $data['user_id'])->required()->int();
+    public function update($data = [], $get = [])
+    {
+        if (isset($get['id']) && $get['id'] != null) {
+            // Validation des données
+            $validator = new Validator;
+            $validator->field('name', $data['name'])->min(2)->max(50);
+            $validator->field('date', $data['date'])->required();
+            $validator->field('print_run', $data['print_run'])->required()->int();
+            $validator->field('dimensions', $data['dimensions'])->required();
+            $validator->field('certified', $data['certified'])->required();
+            $validator->field('description', $data['description'])->required();
+            $validator->field('stamp_state_id', $data['stamp_state_id'])->required()->int();
+            $validator->field('origin_id', $data['origin_id'])->required()->int();
+            $validator->field('color_id', $data['color_id'])->required()->int();
+            $validator->field('user_id', $data['user_id'])->required()->int();
 
-        // Si la validation passe
-        if ($validator->isSuccess()) {
-            $stamp = new Stamp;
-            $update = $stamp->update($data, $get['id']);
+            if ($validator->isSuccess()) {
+                $stamp = new Stamp;
+                $update = $stamp->update($data, $get['id']);
 
-            // Si la mise à jour est réussie
-            if ($update) {
-                // Gestion de l'upload d'image
-                $uploadDir = $_SERVER['DOCUMENT_ROOT'] . ASSET . 'img/uploads/';
-                if (!is_dir($uploadDir)) {
-                    mkdir($uploadDir, 0777, true);
-                }
+                if ($update) {
+                    $imageModel = new Image();
+                    $existingImage = $imageModel->selectPrimaryImageByStampId($get['id']);
 
-                $imageModel = new Image();
+                    if (!empty($_FILES['image_principale']['name'])) {
+                        if ($existingImage) {
+                            $oldImagePath = $_SERVER['DOCUMENT_ROOT'] . $existingImage['url'];
+                            if (file_exists($oldImagePath)) {
+                                unlink($oldImagePath);
+                            }
+                            $imageModel->delete($existingImage['id']);
+                        }
 
-                if (!empty($_FILES['image_principale']['name'])) {
-                    $tmpName = $_FILES['image_principale']['tmp_name'];
-                    $originalName = $_FILES['image_principale']['name'];
-                    $userId = $data['user_id'];
-                    $uploadOk = 1;
-                    $fileName = $userId . '_' . $originalName;
-
-                    $destination = $uploadDir . $fileName;
-
-                    // Vérification si le fichier est une image
-                    $check = getimagesize($tmpName);
-                    if ($check !== false) {
-                        $uploadOk = 1;
-                    } else {
-                        $uploadOk = 0;
+                        $this->uploadImage($_FILES['image_principale'], $get['id'], true);
                     }
 
-                    // Déplacement du fichier si tout est ok
-                    if ($uploadOk == 1 && move_uploaded_file($tmpName, $destination)) {
-                        // Insertion de l'image dans la base de données
-                        $imageModel->insert([
-                            'stamp_id'   => $get['id'],
-                            'name' => $originalName,
-                            'url'        => ASSET . 'img/uploads/' . $fileName,
-                            'is_primary' => 1,
-                        ]);
-                    }
+                    return $this->view->redirect('stamp/show?id=' . $get['id']);
+                } else {
+                    return $this->view->render('error');
                 }
-
-                // Redirection vers la vue de l'élément mis à jour
-                return View::redirect('stamp/show?id=' . $get['id']);
             } else {
-                // Si la mise à jour échoue, afficher la vue d'erreur
-                return View::render('error');
+                $errors = $validator->getErrors();
+                $inputs = $data;
+                return $this->view->render('stamp/edit', ['errors' => $errors, 'inputs' => $inputs]);
             }
-        } else {
-            // Si la validation échoue, afficher les erreurs dans la vue d'édition
-            $errors = $validator->getErrors();
-            $inputs = $data;
-            return View::render('stamp/edit', ['errors' => $errors, 'inputs' => $inputs]);
         }
+        return $this->view->render('error');
     }
 
-    // Si l'ID n'est pas fourni, afficher la vue d'erreur
-    return View::render('error');
-}
 
 
     public function delete($data = [])
@@ -257,5 +203,51 @@ public function update($data = [], $get = []) {
             }
         }
         return $this->view->render('error');
+    }
+
+    private function uploadImage($file, $stampId, $isPrimary = false)
+    {
+        $uploadDir = $_SERVER['DOCUMENT_ROOT'] . ASSET . 'img/uploads/';
+        if (!is_dir($uploadDir)) {
+            mkdir($uploadDir, 0777, true);
+        }
+
+        $tmpName = $file['tmp_name'];
+        $originalName = basename($file['name']);
+        $fileName = $stampId . '_' . time() . '_' . $originalName;
+        $destination = $uploadDir . $fileName;
+
+        $allowedTypes = ['jpg', 'jpeg', 'png', 'gif'];
+        $imageFileType = strtolower(pathinfo($destination, PATHINFO_EXTENSION));
+
+        if (in_array($imageFileType, $allowedTypes) && move_uploaded_file($tmpName, $destination)) {
+            $imageModel = new Image();
+
+            // Si c'est une image principale, supprimer l'ancienne avant d'insérer
+            if ($isPrimary) {
+                $existingImage = $imageModel->selectPrimaryImageByStampId($stampId);
+                if ($existingImage) {
+                    $oldImagePath = $_SERVER['DOCUMENT_ROOT'] . $existingImage['url'];
+                    if (file_exists($oldImagePath)) {
+                        unlink($oldImagePath);
+                    }
+                    $imageModel->delete($existingImage['id']);
+                }
+            } else {
+                // Vérifier si une image avec le même nom existe déjà pour éviter un conflit
+                $existingImage = $imageModel->selectImageByNameAndStampId($originalName, $stampId);
+                if ($existingImage) {
+                    return false; // Éviter les doublons
+                }
+            }
+
+            return $imageModel->insert([
+                'stamp_id'   => $stampId,
+                'name'       => $originalName,
+                'url'        => ASSET . 'img/uploads/' . $fileName,
+                'is_primary' => $isPrimary ? 1 : 0,
+            ]);
+        }
+        return false;
     }
 }
