@@ -42,4 +42,14 @@ class Image extends CRUD
         $stmt->execute($params);
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
+
+    public function deleteByStampId($stampId)
+    {
+        $sql = "DELETE FROM image WHERE stamp_id = :stamp_id";
+        $params = ['stamp_id' => $stampId];
+        $stmt = $this->prepare($sql);
+        $stmt->bindValue(':stamp_id', $stampId, \PDO::PARAM_INT);
+        $stmt->execute($params);
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
+    }
 }

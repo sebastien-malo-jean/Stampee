@@ -33,7 +33,7 @@ class StampController
         $origin = new Origin();
         $origins = $origin->getOrigins();
         $stamp_state = new Stamp_state();
-        $stamp_states = $stamp_state->getStampStates('state');
+        $stamp_states = $stamp_state->getStampStates();
         $color = new Color();
         $colors = $color->getColors();
         return $this->view->render('stamp/create', ['origins' => $origins, 'stamp_states' => $stamp_states, 'colors' => $colors, 'user' => $user]);
@@ -78,7 +78,7 @@ class StampController
                     foreach ($_FILES['images_supplementaires']['name'] as $index => $name) {
                         if (!empty($name)) {
                             $file = [
-                                'name' => time() . '_' . $name, // Assurer un nom unique
+                                'name' => $name,
                                 'tmp_name' => $_FILES['images_supplementaires']['tmp_name'][$index]
                             ];
                             $this->uploadImage($file, $stampId, false);
@@ -194,10 +194,27 @@ class StampController
     public function delete($data = [])
     {
         if (isset($data['id']) && $data['id'] != null) {
+            // Récupérer toutes les images associées au timbre
+            $imageModel = new Image();
+            $images = $imageModel->selectImagesByStampId($data['id']);
+
+            // Supprimer les fichiers des images
+            foreach ($images as $image) {
+                $imagePath = $_SERVER['DOCUMENT_ROOT'] . $image['url'];
+                if (file_exists($imagePath)) {
+                    unlink($imagePath);
+                }
+            }
+
+            // Supprimer les images de la base de données
+            $imageModel->deleteByStampId($data['id']);
+
+            // Supprimer le timbre
             $stamp = new Stamp;
             $delete = $stamp->delete($data['id']);
+
             if ($delete) {
-                return $this->view->redirect('stamp/index');
+                return $this->view->redirect('stamp/create');
             } else {
                 return $this->view->render('error');
             }
@@ -237,7 +254,7 @@ class StampController
                 // Vérifier si une image avec le même nom existe déjà pour éviter un conflit
                 $existingImage = $imageModel->selectImageByNameAndStampId($originalName, $stampId);
                 if ($existingImage) {
-                    return false; // Éviter les doublons
+                    return false;
                 }
             }
 
