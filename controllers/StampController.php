@@ -135,4 +135,23 @@ class StampController {
         }
         return $this->view->render('error');
     }
+
+    public function edit($data = []) {
+        if (isset($data['id']) && $data['id'] != null) {
+            $stamp = new Stamp;
+            $selectId = $stamp->selectId($data['id']);
+            if ($selectId) {
+                $origin = new Origin();
+                $origins = $origin->select('country');
+                $stamp_state = new Stamp_state();
+                $stamp_states = $stamp_state->select('state');
+                $color = new Color();
+                $colors = $color->select('name');
+                return $this->view->render('stamp/edit', ['stamp' => $selectId, 'origins' => $origins, 'stamp_states' => $stamp_states, 'colors' => $colors]);
+            } else {
+                return $this->view->render('error');
+            }
+        }
+        return $this->view->render('error');
+    }
 }

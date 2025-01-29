@@ -55,7 +55,7 @@
                     </div>
                 </section>
                 <section class='stampCard__auction'>
-                    <button class='stampCard__button'>Misé</button>
+                    <a href="{{ base }}/stamp/edit?id={{stamp.id}}" class='stampCard__button'>Modifier</a>
                 </section>
             </section>
         </article>
