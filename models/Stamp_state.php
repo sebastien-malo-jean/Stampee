@@ -1,13 +1,17 @@
 <?php
+
 namespace App\Models;
+
 use App\Models\CRUD;
 
-class Stamp_state extends CRUD{
+class Stamp_state extends CRUD
+{
     protected $table = "stamp_state";
     protected $primaryKey = "id";
     protected $fillable = ['state'];
 
-    public function getStates() {
+    public function getStampStates()
+    {
         $sql = "SELECT * FROM stamp_state ORDER BY id ASC";
         $stmt = $this->prepare($sql);
         $stmt->execute();
