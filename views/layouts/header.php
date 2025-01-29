@@ -6,13 +6,12 @@
     <meta name="description" content="">
     <meta charset='UTF-8'>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{asset}}/css/style.css">
-    <link rel="stylesheet" href="{{asset}}/css/styles.css">
+    <link rel="stylesheet" href="{{asset}}css/styles.css">
+    <script type="module" src="{{asset}}js/main.js" defer></script>
     <title>{{title}}</title>
 </head>
 
 <body>
-
 
     <header class='header'>
         <div class='header__logo'>

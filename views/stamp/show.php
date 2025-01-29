@@ -1,5 +1,6 @@
 {{ include('layouts/header.php', { title: 'Vue sur le timbre' }) }}
 
+
 <section class="content__frame">
     <div class="content__frame-stampCard-page">
         <h1 class="content__frame-title">Detail du timbre</h1>

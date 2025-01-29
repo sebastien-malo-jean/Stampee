@@ -38,7 +38,7 @@
             <input type="radio" id="section3" name="accordion" class="accordion-radio">
             <label for="section3" class="footer__nav-section-title">Timbres & Enchères</label>
             <ul class='footer__nav-list'>
-                <li class='footer__nav-item'><a href='' class='footer__link'>Timbres</a></li>
+                <li class='footer__nav-item'><a href='{{base}}/stamp/create' class='footer__link'>Timbres</a></li>
                 <li class='footer__nav-item'><a href='' class='footer__link'>Enchères</a></li>
             </ul>
         </div>
