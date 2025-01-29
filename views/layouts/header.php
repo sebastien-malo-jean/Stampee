@@ -48,6 +48,11 @@
                     <a href='{{base}}/user/create' class='header__connexion-link btn btn__CTA'>Inscription</a>
                 </li>
                 {% else %}
+                <p>
+                    {% if guest is empty %}
+                    Hello {{ session.user_name }}!
+                    {% endif %}
+                </p>
                 <li class='header__connexion-list-item'>
                     <a href='' class='header__connexion-link btn'>Profil</a>
                 </li>
@@ -65,6 +70,3 @@
         </section>
     </header>
     <main>
-        {% if guest is empty %}
-        Hello {{ session.user_name }}!
-        {% endif %}

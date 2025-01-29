@@ -43,7 +43,7 @@
                     </div>
                     <div class='stampCard__details-box'>
                         <p class='stampCard__details-box--label'>Dimensions</p>
-                        <p class='stampCard__details-box-detail'>{{stamp.dimension}}</p>
+                        <p class='stampCard__details-box-detail'>{{stamp.dimensions}}</p>
                     </div>
                     <div class='stampCard__details-box'>
                         <p class='stampCard__details-box--label'>Certifié</p>
@@ -55,7 +55,9 @@
                     </div>
                 </section>
                 <section class='stampCard__auction'>
+                    {% if user == stamp.user_id %}
                     <a href="{{ base }}/stamp/edit?id={{stamp.id}}" class='stampCard__button'>Modifier</a>
+                    {% endif %}
                 </section>
             </section>
         </article>

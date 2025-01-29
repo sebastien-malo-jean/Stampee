@@ -127,6 +127,11 @@
             <!-- Bouton de soumission -->
             <button type="submit" class="form__button">Enregistrer</button>
         </form>
+        <form action="{{ base }}/stamp/delete" method="post">
+            <input type="hidden" name="id" value="{{ stamp.id }}">
+            <button type="submit" class="form__button">Supprimer</button>
+        </form>
+
     </div>
 </div>
 
