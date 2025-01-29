@@ -32,7 +32,7 @@ class StampController {
         $stamp_state = new Stamp_state();
         $stamp_states = $stamp_state->select('state');
         $color = new Color();
-        $colors = $color->select('color_name');
+        $colors = $color->select('name');
         return $this->view->render('stamp/create',['origins'=>$origins, 'stamp_states'=>$stamp_states, 'colors'=>$colors, 'user'=>$user]);
     }
 
@@ -55,8 +55,6 @@ class StampController {
 
             if ($stampId) {
                 $uploadDir = $_SERVER['DOCUMENT_ROOT'] . ASSET .'img/uploads/';
-                var_dump($uploadDir);
-                // exit;
                 if (!is_dir($uploadDir)) {
                 mkdir($uploadDir, 0777, true);
             }
@@ -67,10 +65,19 @@ class StampController {
                 $tmpName = $_FILES['image_principale']['tmp_name'];
                 $originalName = $_FILES['image_principale']['name'];
                 $userId = $data['user_id'];
+                $uploadOk = 1;
                 $fileName = $userId . '_' . $originalName;
                 
                 $destination = $uploadDir . $fileName;
-
+                
+                $check = getimagesize($tmpName);
+                if($check !== false) {
+                  echo "File is an image - " . $check["mime"] . ".";
+                  $uploadOk = 1;
+                } else {
+                  echo "File is not an image.";
+                  $uploadOk = 0;
+                }
                 if (move_uploaded_file($tmpName, $destination)) {
                     $imageModel->insert([
                         'stamp_id'   => $stampId,
@@ -116,10 +123,12 @@ class StampController {
 
     public function show($data = []) {
         if (isset($data['id']) && $data['id'] != null) {
+            $image = new Image;
+            $images = $image->selectImagesByStampId($data['id']);
             $stamp = new Stamp;
             $selectId = $stamp->selectId($data['id']);
             if ($selectId) {
-                return $this->view->render('stamp/show', ['stamp' => $selectId]);
+                return $this->view->render('stamp/show', ['stamp' => $selectId, 'images' => $images]);
             } else {
                 return $this->view->render('error');
             }

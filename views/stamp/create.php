@@ -27,7 +27,7 @@
             <!-- Date de création -->
             <label class="form__label">
                 Date de création
-                <input type="date" class="form__input" name="date" value="{{ stamp.date|default('') }}">
+                <input type="number" year class="form__input" name="date" value="{{ stamp.date|default('') }}">
             </label>
 
             <!-- Tirage -->
@@ -99,7 +99,7 @@
                     {% for c in colors %}
                     <option value="{{ c.id }}"
                         {% if stamp.color_id is defined and stamp.color_id == c.id %}selected{% endif %}>
-                        {{ c.color_name }}
+                        {{ c.name }}
                     </option>
                     {% endfor %}
                 </select>
