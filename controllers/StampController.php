@@ -65,19 +65,17 @@ class StampController {
 
              if (!empty($_FILES['image_principale']['name'])) {
                 $tmpName = $_FILES['image_principale']['tmp_name'];
-                $filesName = $_FILES['image_principale']['name'];
-                var_dump($tmpName);
-                var_dump($filesName);
+                $originalName = $_FILES['image_principale']['name'];
+                $userId = $data['user_id'];
+                $fileName = $userId . '_' . $originalName;
                 
-                $destination = $uploadDir . $filesName;
-
-                var_dump($destination);
-                // exit;
+                $destination = $uploadDir . $fileName;
 
                 if (move_uploaded_file($tmpName, $destination)) {
                     $imageModel->insert([
                         'stamp_id'   => $stampId,
-                        'url'        => ASSET .'img/uploads/' . $filesName,
+                        'name'=> $originalName,
+                        'url'        => ASSET .'img/uploads/' . $fileName,
                         'is_primary' => 1,
                     ]);
                 }
@@ -87,12 +85,15 @@ class StampController {
                 foreach ($_FILES['images_supplementaires']['name'] as $index => $name) {
                     if (!empty($name)) {
                         $tmpName    = $_FILES['images_supplementaires']['tmp_name'][$index];
-                        $fileName   = basename($name);
+                        $originalName   = basename($name);
+                        $userId     = $data['user_id'];
+                        $fileName   = $userId . '_' . $originalName;
                         $destination = $uploadDir . '/' . $fileName;
 
                         if (move_uploaded_file($tmpName, $destination)) {
                             $imageModel->insert([
                                 'stamp_id'   => $stampId,
+                                'name'       => $originalName,
                                 'url'        => ASSET .'img/uploads/' . $fileName,
                                 'is_primary' => 0,
                             ]);
@@ -100,7 +101,7 @@ class StampController {
                     }
                 }
             }
-            return $this->view->redirect('stamp/edit?id=' . $stampId);
+            return $this->view->redirect('stamp/show?id=' . $stampId);
 
         } else {
             return $this->view->render('error');
@@ -111,5 +112,18 @@ class StampController {
         return $this->view->render('stamp/create', ['errors' => $errors, 'inputs' => $inputs]);
     }
 
+    }
+
+    public function show($data = []) {
+        if (isset($data['id']) && $data['id'] != null) {
+            $stamp = new Stamp;
+            $selectId = $stamp->selectId($data['id']);
+            if ($selectId) {
+                return $this->view->render('stamp/show', ['stamp' => $selectId]);
+            } else {
+                return $this->view->render('error');
+            }
+        }
+        return $this->view->render('error');
     }
 }

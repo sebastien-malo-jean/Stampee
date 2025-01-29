@@ -26,3 +26,4 @@ Route::post('/reset_password', 'AuthController@resetPasswordStore');
 
 Route::get('/stamp/create', 'StampController@create');
 Route::post('/stamp/create', 'StampController@store');
+Route::get('/stamp/show', 'StampController@show');
