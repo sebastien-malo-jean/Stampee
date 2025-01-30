@@ -15,7 +15,7 @@
 
     <header class='header'>
         <div class='header__logo'>
-            <a href='' class='header__logo-link'>
+            <a href='{{base}}/home' class='header__logo-link'>
                 <img src='{{asset}}/img/logo/logo-2-alt.png' alt='logo Stampee' class='header__logo-img'>
             </a>
         </div>

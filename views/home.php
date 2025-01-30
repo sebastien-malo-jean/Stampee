@@ -1,7 +1,7 @@
 {{ include('layouts/header.php', { title: 'Vue sur le timbre' }) }}
 
 <section class="content__frame">
-    <section class='littleCardGrid'>
+    <!-- <section class='littleCardGrid'>
         <h3 class='littleCardGrid__titre'>Coup de coeur du Lord Stampee :</h3>
         <div class='littleCardGrid__box'>
             <article class='littleCard'>
@@ -203,7 +203,7 @@
                 </div>
             </article>
         </div>
-    </section>
+    </section> -->
     <section class='profile'>
         <div class='profile__section-top-box'>
             <div class='profile__header'>
