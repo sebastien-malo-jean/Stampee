@@ -1,11 +1,9 @@
-/* Gérer les bordures et les ombres */
 .stampCard,
 .stampCard__gallery {
     display: flex;
     gap: var(--spacing-thin);
     border-radius: var(--radius-medium);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    /* Ombre légère */
     padding: var(--spacing-thin);
     background-color: var(--secondary);
 }
@@ -23,7 +21,6 @@
     flex-grow: 4;
     max-height: 750px;
     border-radius: var(--radius-medium);
-    /* Bordures arrondies */
     overflow: hidden;
 }
 
@@ -32,12 +29,10 @@
     height: 100%;
     object-fit: cover;
     transition: transform 0.3s ease;
-    /* Effet zoom sur l'image */
 }
 
 .stampCard__gallery-figure--img:hover {
     transform: scale(1.05);
-    /* Zoom au survol */
 }
 
 /* Miniatures */
@@ -54,7 +49,6 @@
     scrollbar-width: thin;
     padding: var(--spacing-thin);
     border-radius: var(--radius-medium);
-    /* Bordures arrondies */
 }
 
 .stampCard__gallery-thumbnails--img {
@@ -63,24 +57,20 @@
     object-fit: cover;
     cursor: pointer;
     border-radius: var(--radius-medium);
-    /* Bordures arrondies */
     transition: opacity 0.3s ease;
 }
 
 .stampCard__gallery-thumbnails--img:hover {
     opacity: 0.8;
-    /* Effet de survol */
 }
 
 /* Détails de la carte */
 .stampCard__box-details {
     flex-basis: 500px;
-    /* Augmenter la largeur ici pour rendre la section plus large */
     flex-grow: 1;
     display: flex;
     flex-direction: column;
     gap: var(--spacing-thin);
-    /* Espacement plus aéré */
 }
 
 .stampCard__details-box {
@@ -94,12 +84,10 @@
 .stampCard__details-box--label {
     font-weight: 600;
     color: var(--primary-dark);
-    /* Couleur plus marquée pour le label */
 }
 
 .stampCard__details-box:hover {
     background-color: var(--primary-light);
-    /* Fond légèrement coloré au survol */
 }
 
 /* Mise en valeur des lignes paires */
@@ -113,9 +101,7 @@
     gap: var(--spacing-thinnest);
     padding: var(--spacing-thin);
     background-color: rgba(0, 0, 0, 0.03);
-    /* Légère teinte en arrière-plan */
     border-radius: var(--radius-medium);
-    /* Bordures arrondies */
 }
 
 /* Boutons */
@@ -139,7 +125,6 @@
     color: var(--primary);
     text-decoration: underline;
     transform: scale(1.05);
-    /* Effet de "gonflement" */
 }
 
 /* Effet pour la zone d'édition */
