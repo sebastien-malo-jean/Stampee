@@ -25,7 +25,7 @@ class AuthController
             if ($checkuser) {
                 return View::redirect('home');
             } else {
-                $errors['message'] = 'Please check your credentials!';
+                $errors['message'] = "Veuillez vérifier vos informations d'identification !";
                 return View::render('auth/index', ['errors' => $errors, 'user' => $data]);
             }
         } else {

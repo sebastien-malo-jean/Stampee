@@ -5,7 +5,8 @@
     justify-content: center;
 }
 
-.form-container {
+.form-container,
+.container {
     background-color: var(--secondary);
     border-radius: var(--radius-sharp);
     border: 1px solid var(--dark);
@@ -110,6 +111,8 @@
     background-color: var(--tertiary);
 }
 
+
+
 @media (max-width: 768px) {
     .general-container {
         flex-direction: column;
@@ -122,8 +125,4 @@
     .form__title {
         font-size: var(--font-tallest);
     }
-
-    /* .form__button {
-        font-size: var(--font-current);
-    } */
 }
