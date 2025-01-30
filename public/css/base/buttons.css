@@ -8,13 +8,6 @@ a {
   }
 }
 
-/* .header__link,
-.footer__link {
-  padding: clamp(var(--spacing-micro), 50%, var(--spacing-thinnest));
-} */
-
-
-
 .btn {
   background-color: var(--primary);
   padding: var(--spacing-micro);
