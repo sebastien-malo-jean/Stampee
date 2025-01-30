@@ -1,3 +1,3 @@
 <?php
 define('BASE', '/stampee');
-define('ASSET', '/stampee/public/');
+define('ASSET', '/stampee/public');

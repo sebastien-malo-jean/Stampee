@@ -1,8 +1,4 @@
 </main>
-
-<head>
-    <link rel="stylesheet" href="/asset/css/composants/footer.css">
-</head>
 <footer class='footer'>
     <nav class='footer__nav'>
         <!-- Section Membre -->
