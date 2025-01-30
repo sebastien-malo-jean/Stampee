@@ -10,7 +10,6 @@
     <script type="module" src="{{asset}}/js/main.js" defer></script>
     <title>{{title}}</title>
 </head>
-{{asset}}/js/main.js
 
 <body>
 
