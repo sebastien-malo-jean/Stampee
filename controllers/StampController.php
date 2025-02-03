@@ -7,6 +7,7 @@ use App\Models\Image;
 use App\Models\Origin;
 use App\Models\Stamp_state;
 use App\Models\Color;
+use App\Providers\UploadImage;
 use App\Providers\View;
 use App\Providers\Auth;
 use App\Providers\Validator;
@@ -70,8 +71,8 @@ class StampController
                         }
                         $imageModel->delete($existingImage['id']);
                     }
-
-                    $this->uploadImage($_FILES['image_principale'], $stampId, true);
+                    $uploadImage = new UploadImage();
+                    $uploadImage->uploadImage($_FILES['image_principale'], $stampId, true);
                 }
 
                 if (!empty($_FILES['images_supplementaires']['name'][0])) {
@@ -81,7 +82,9 @@ class StampController
                                 'name' => $name,
                                 'tmp_name' => $_FILES['images_supplementaires']['tmp_name'][$index]
                             ];
-                            $this->uploadImage($file, $stampId, false);
+                            $uploadImage = new UploadImage();
+
+                            $uploadImage->uploadImage($file, $stampId, false);
                         }
                     }
                 }
@@ -172,8 +175,8 @@ class StampController
                             }
                             $imageModel->delete($existingImage['id']);
                         }
-
-                        $this->uploadImage($_FILES['image_principale'], $get['id'], true);
+                        $uploadImage = new UploadImage();
+                        $uploadImage->uploadImage($_FILES['image_principale'], $get['id'], true);
                     }
 
                     return $this->view->redirect('stamp/show?id=' . $get['id']);
@@ -220,51 +223,5 @@ class StampController
             }
         }
         return $this->view->render('error');
-    }
-
-    private function uploadImage($file, $stampId, $isPrimary = false)
-    {
-        $uploadDir = $_SERVER['DOCUMENT_ROOT'] . ASSET . 'img/uploads/';
-        if (!is_dir($uploadDir)) {
-            mkdir($uploadDir, 0777, true);
-        }
-
-        $tmpName = $file['tmp_name'];
-        $originalName = basename($file['name']);
-        $fileName = $stampId . '_' . time() . '_' . $originalName;
-        $destination = $uploadDir . $fileName;
-
-        $allowedTypes = ['jpg', 'jpeg', 'png', 'gif'];
-        $imageFileType = strtolower(pathinfo($destination, PATHINFO_EXTENSION));
-
-        if (in_array($imageFileType, $allowedTypes) && move_uploaded_file($tmpName, $destination)) {
-            $imageModel = new Image();
-
-            // Si c'est une image principale, supprimer l'ancienne avant d'insérer
-            if ($isPrimary) {
-                $existingImage = $imageModel->selectPrimaryImageByStampId($stampId);
-                if ($existingImage) {
-                    $oldImagePath = $_SERVER['DOCUMENT_ROOT'] . $existingImage['url'];
-                    if (file_exists($oldImagePath)) {
-                        unlink($oldImagePath);
-                    }
-                    $imageModel->delete($existingImage['id']);
-                }
-            } else {
-                // Vérifier si une image avec le même nom existe déjà pour éviter un conflit
-                $existingImage = $imageModel->selectImageByNameAndStampId($originalName, $stampId);
-                if ($existingImage) {
-                    return false;
-                }
-            }
-
-            return $imageModel->insert([
-                'stamp_id'   => $stampId,
-                'name'       => $originalName,
-                'url'        => ASSET . 'img/uploads/' . $fileName,
-                'is_primary' => $isPrimary ? 1 : 0,
-            ]);
-        }
-        return false;
     }
 }
