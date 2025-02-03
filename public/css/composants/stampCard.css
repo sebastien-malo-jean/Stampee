@@ -53,7 +53,9 @@
 
 .stampCard__gallery-thumbnails--img {
     height: 125px;
+    aspect-ratio: 1 / 1;
     width: 100%;
+    height: auto;
     object-fit: cover;
     cursor: pointer;
     border-radius: var(--radius-medium);

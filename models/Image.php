@@ -14,7 +14,8 @@ class Image extends CRUD
     {
         $sql = "SELECT *
             FROM image
-            WHERE stamp_id = :stamp_id";
+            WHERE stamp_id = :stamp_id
+            ORDER BY is_primary DESC";
         $stmt = $this->prepare($sql);
         $stmt->bindValue(':stamp_id', $stampId, \PDO::PARAM_INT);
         $stmt->execute();

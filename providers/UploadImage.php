@@ -10,7 +10,7 @@ class UploadImage
     function uploadImage($file, $stampId, $isPrimary = false)
     {
         $user = Auth::user();
-        $uploadDir = $_SERVER['DOCUMENT_ROOT'] . ASSET . '/img/uploads/' . $user . '/';
+        $uploadDir = $_SERVER['DOCUMENT_ROOT'] . ASSET . '/img/uploads/' . $user . '/' . $stampId . '/';
         if (!is_dir($uploadDir)) {
             mkdir($uploadDir, 0777, true);
         }
@@ -47,7 +47,7 @@ class UploadImage
             return $imageModel->insert([
                 'stamp_id'   => $stampId,
                 'name'       => $originalName,
-                'url'        => ASSET . '/img/uploads/' . $user . "/" . $fileName,
+                'url'        => ASSET . '/img/uploads/' . $user . "/" . $stampId . '/' . $fileName,
                 'is_primary' => $isPrimary ? 1 : 0,
             ]);
         }

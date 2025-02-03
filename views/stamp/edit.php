@@ -132,7 +132,19 @@
             <button type="submit" class="form__button">Supprimer</button>
         </form>
 
+
     </div>
+    <section class='stampCard__gallery'>
+        <figure class='stampCard__gallery-figure'>
+            <img id='main_img' src='{{ images[0].url }}' alt='image principale' class='stampCard__gallery-figure--img'>
+        </figure>
+        <div class='stampCard__gallery-thumbnails'>
+            {% for image in images %}
+            <img src='{{ image.url }}' alt='{{ image.name }}' class='stampCard__gallery-thumbnails--img'>
+            {% endfor %}
+
+        </div>
+    </section>
 </div>
 
 {{ include('layouts/footer.php') }}
