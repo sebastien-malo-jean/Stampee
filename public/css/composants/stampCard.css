@@ -144,6 +144,33 @@
     transform: scale(1.05);
 }
 
+.stampCard__gallery-thumbnails--picture {
+    cursor: pointer;
+    position: relative;
+    top: 0;
+    right: 0;
+    color: var(--primary);
+    transition: background-color 0.3s ease;
+    z-index: 2;
+}
+
+.stampCard__gallery-thumbnails--delete {
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: var(--spacing-thinnest);
+    background-color: var(--tertiary);
+    color: var(--primary);
+    transition: background-color 0.3s ease;
+    z-index: 2;
+}
+
+.stampCard__gallery-thumbnails--delete:hover {
+    background-color: var(--primary);
+    color: red;
+}
+
 /* Responsive mobile et tablette */
 @media (max-width: 850px) {
     .stampCard {
@@ -172,6 +199,8 @@
         object-fit: cover;
     }
 }
+
+/* Responsive tablette et desktop */
 
 @media (max-width: 1630px) {
     .stampCard__gallery {

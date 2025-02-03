@@ -14,7 +14,9 @@
                 </figure>
                 <div class='stampCard__gallery-thumbnails'>
                     {% for image in images %}
-                    <img src='{{ image.url }}' alt='{{ image.name }}' class='stampCard__gallery-thumbnails--img'>
+                    <picture class='stampCard__gallery-thumbnails--picture'>
+                        <img src='{{ image.url }}' alt='{{ image.name }}' class='stampCard__gallery-thumbnails--img'>
+                    </picture>
                     {% endfor %}
 
                 </div>
