@@ -169,6 +169,7 @@ class StampController
                     $imageModel = new Image();
                     $existingImage = $imageModel->selectPrimaryImageByStampId($get['id']);
 
+                    // Gestion de l'image principale (si elle est téléchargée)
                     if (!empty($_FILES['image_principale']['name'])) {
                         if ($existingImage) {
                             $oldImagePath = $_SERVER['DOCUMENT_ROOT'] . $existingImage['url'];
@@ -179,6 +180,21 @@ class StampController
                         }
                         $uploadImage = new UploadImage();
                         $uploadImage->uploadImage($_FILES['image_principale'], $get['id'], true);
+                    }
+
+                    // Traitement des images supplémentaires (non primaires)
+                    if (!empty($_FILES['images_supplementaires']['name'][0])) {
+                        foreach ($_FILES['images_supplementaires']['name'] as $index => $name) {
+                            if (!empty($name)) {
+                                $file = [
+                                    'name' => $name,
+                                    'tmp_name' => $_FILES['images_supplementaires']['tmp_name'][$index]
+                                ];
+                                $uploadImage = new UploadImage();
+                                // Upload des images non primaires
+                                $uploadImage->uploadImage($file, $get['id'], false);
+                            }
+                        }
                     }
 
                     return $this->view->redirect('stamp/show?id=' . $get['id']);
@@ -193,8 +209,6 @@ class StampController
         }
         return $this->view->render('error');
     }
-
-
 
     public function delete($data = [])
     {

@@ -11,18 +11,23 @@ class UploadImage
     {
         $user = Auth::user();
         $uploadDir = $_SERVER['DOCUMENT_ROOT'] . ASSET . '/img/uploads/' . $user . '/' . $stampId . '/';
+
+        // Créer le répertoire s'il n'existe pas
         if (!is_dir($uploadDir)) {
             mkdir($uploadDir, 0777, true);
         }
 
         $tmpName = $file['tmp_name'];
         $originalName = basename($file['name']);
-        $fileName = $stampId . '_' . time() . '_' . $originalName;
+
+        // Renommer l'image pour éviter les conflits
+        $fileName = $stampId . '_' . time() . '_' . uniqid() . '.' . pathinfo($originalName, PATHINFO_EXTENSION);
         $destination = $uploadDir . $fileName;
 
         $allowedTypes = ['jpg', 'jpeg', 'png', 'gif'];
         $imageFileType = strtolower(pathinfo($destination, PATHINFO_EXTENSION));
 
+        // Vérifier le type de fichier et le déplacer
         if (in_array($imageFileType, $allowedTypes) && move_uploaded_file($tmpName, $destination)) {
             $imageModel = new Image();
 
@@ -32,18 +37,16 @@ class UploadImage
                 if ($existingImage) {
                     $oldImagePath = $_SERVER['DOCUMENT_ROOT'] . $existingImage['url'];
                     if (file_exists($oldImagePath)) {
-                        unlink($oldImagePath);
+                        unlink($oldImagePath); // Supprimer l'ancienne image
                     }
-                    $imageModel->delete($existingImage['id']);
+                    $imageModel->delete($existingImage['id']); // Supprimer l'entrée en base de données
                 }
             } else {
-                // Vérifier si une image avec le même nom existe déjà pour éviter un conflit
-                $existingImage = $imageModel->selectImageByNameAndStampId($originalName, $stampId);
-                if ($existingImage) {
-                    return false;
-                }
+                // Pas besoin de vérifier si une image avec le même nom existe
+                // On renomme l'image avec un identifiant unique, donc il n'y aura pas de conflit
             }
-            $user = Auth::user();
+
+            // Enregistrer l'image dans la base de données
             return $imageModel->insert([
                 'stamp_id'   => $stampId,
                 'name'       => $originalName,
@@ -51,6 +54,7 @@ class UploadImage
                 'is_primary' => $isPrimary ? 1 : 0,
             ]);
         }
-        return false;
+
+        return false; // Retourner false si l'upload échoue
     }
 }
