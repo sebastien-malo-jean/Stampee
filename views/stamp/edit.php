@@ -1,18 +1,35 @@
 {{ include('layouts/header.php', { title: 'Création de Timbre' }) }}
 
 <div class="general-container">
-    <!-- Bloc pour les erreurs -->
-    {% if errors is defined %}
-    <div class="form-container__error">
-        <ul class="form-container__error-list">
-            {% for error in errors %}
-            <li class="form-container__error-item">{{ error }}</li>
-            {% endfor %}
-        </ul>
-    </div>
-    {% endif %}
 
+    <section class='stampCard__gallery'>
+        <figure class='stampCard__gallery-figure'>
+            <img id='main_img' src='{{ images[0].url }}' alt='image principale' class='stampCard__gallery-figure--img'>
+        </figure>
+        <div class='stampCard__gallery-thumbnails'>
+            {% for image in images %}
+            <picture class='stampCard__gallery-thumbnails--picture'>
+                <img src='{{ image.url }}' alt='{{ image.name }}' class='stampCard__gallery-thumbnails--img'>
+                <form action="{{ base }}/stamp/deleteImage" method="post" class="form__button-delete-image">
+                    <input type="text" name="id" value="{{ image.id }}" hidden>
+                    <button type="submit">X</button>
+                </form>
+            </picture>
+            {% endfor %}
+
+        </div>
+    </section>
     <div class="form-container">
+        <!-- Bloc pour les erreurs -->
+        {% if errors is defined %}
+        <div class="form-container__error">
+            <ul class="form-container__error-list">
+                {% for error in errors %}
+                <li class="form-container__error-item">{{ error }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
         <!-- Formulaire principal -->
         <!-- ajouter l’attribut enctype pour l’upload d’images -->
         <form class="form" method="post" enctype="multipart/form-data">
@@ -132,21 +149,7 @@
             <button type="submit" class="form__button">Supprimer</button>
         </form>
 
-
     </div>
-    <section class='stampCard__gallery'>
-        <figure class='stampCard__gallery-figure'>
-            <img id='main_img' src='{{ images[0].url }}' alt='image principale' class='stampCard__gallery-figure--img'>
-        </figure>
-        <div class='stampCard__gallery-thumbnails'>
-            {% for image in images %}
-            <picture class='stampCard__gallery-thumbnails--picture'>
-                <img src='{{ image.url }}' alt='{{ image.name }}' class='stampCard__gallery-thumbnails--img'>
-            </picture>
-            {% endfor %}
-
-        </div>
-    </section>
 </div>
 
 {{ include('layouts/footer.php') }}

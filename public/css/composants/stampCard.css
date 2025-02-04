@@ -26,7 +26,7 @@
 
 .stampCard__gallery-figure--img {
     width: 100%;
-    height: 100%;
+    height: auto;
     object-fit: cover;
     transition: transform 0.3s ease;
 }
@@ -51,11 +51,21 @@
     border-radius: var(--radius-medium);
 }
 
+.stampCard__gallery-thumbnails--picture {
+    position: relative;
+    height: 125px;
+    width: 100%;
+    object-fit: cover;
+    cursor: pointer;
+    border-radius: var(--radius-medium);
+    overflow: hidden;
+    border: 2px solid var(--dark);
+    transition: transform 0.3s ease-in-out;
+}
+
 .stampCard__gallery-thumbnails--img {
     height: 125px;
-    aspect-ratio: 1 / 1;
     width: 100%;
-    height: auto;
     object-fit: cover;
     cursor: pointer;
     border-radius: var(--radius-medium);
@@ -64,6 +74,19 @@
 
 .stampCard__gallery-thumbnails--img:hover {
     opacity: 0.8;
+}
+
+.form__button-delete-image {
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    background: var(--CTA);
+    color: var(--tertiary);
+    border: none;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+    z-index: 2;
 }
 
 /* Détails de la carte */
@@ -89,8 +112,12 @@
 }
 
 .stampCard__details-box:hover {
-    background-color: var(--dark);
-    color: var(--light);
+    background-color: var(--primary-light);
+}
+
+/* Mise en valeur des lignes paires */
+.stampCard__details .stampCard__details-box:nth-child(2n) {
+    background-color: rgb(255, 255, 255, 0.6);
 }
 
 /* Description */
@@ -134,6 +161,7 @@
 .stampCard__auction a {
     padding: var(--spacing-thinnest);
     border-radius: var(--radius-medium);
+    background-color: var(--primary-dark);
     color: var(--tertiary);
     font-weight: 600;
     text-align: center;
@@ -142,33 +170,6 @@
 
 .stampCard__auction a:hover {
     transform: scale(1.05);
-}
-
-.stampCard__gallery-thumbnails--picture {
-    cursor: pointer;
-    position: relative;
-    top: 0;
-    right: 0;
-    color: var(--primary);
-    transition: background-color 0.3s ease;
-    z-index: 2;
-}
-
-.stampCard__gallery-thumbnails--delete {
-    cursor: pointer;
-    position: absolute;
-    top: 0;
-    right: 0;
-    padding: var(--spacing-thinnest);
-    background-color: var(--tertiary);
-    color: var(--primary);
-    transition: background-color 0.3s ease;
-    z-index: 2;
-}
-
-.stampCard__gallery-thumbnails--delete:hover {
-    background-color: var(--primary);
-    color: red;
 }
 
 /* Responsive mobile et tablette */
@@ -199,8 +200,6 @@
         object-fit: cover;
     }
 }
-
-/* Responsive tablette et desktop */
 
 @media (max-width: 1630px) {
     .stampCard__gallery {

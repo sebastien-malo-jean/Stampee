@@ -10,10 +10,20 @@ main {
     flex-basis: 100%;
   }
 
+  .general-container {
+    display: flex;
+    gap: var(--spacing-broad);
+    justify-content: space-between;
+    max-width: fit-content;
+    margin: 0 auto;
+    box-sizing: border-box;
+  }
+
   .content__frame {
     box-sizing: border-box;
     max-width: 100%;
     display: flex;
+    flex-basis: 100%;
     flex-direction: column;
     overflow: hidden;
 
@@ -52,7 +62,22 @@ main {
     display: none;
   }
 
-  @media (max-width: 600px) {
+  @media (max-width: 768px) {
+
+    .general-container {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .image__gallery {
+      width: 100%;
+    }
+
+    .form-container {
+      width: 100%;
+      padding: 15px;
+    }
+
     .content__frame.auction-page {
       position: relative;
     }
