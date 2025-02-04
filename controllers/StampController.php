@@ -2,11 +2,15 @@
 
 namespace App\Controllers;
 
+/* Models */
+
 use App\Models\Stamp;
 use App\Models\Image;
 use App\Models\Origin;
 use App\Models\Stamp_state;
 use App\Models\Color;
+
+/* provider */
 use App\Providers\UploadImage;
 use App\Providers\View;
 use App\Providers\Auth;
