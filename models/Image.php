@@ -10,6 +10,15 @@ class Image extends CRUD
     protected $primaryKey = "id";
     protected $fillable = ['is_primary', 'name', 'url', 'stamp_id'];
 
+    public function selectImageById($id)
+    {
+        $sql = "SELECT * FROM image WHERE id = :id";
+        $stmt = $this->prepare($sql);
+        $stmt->bindValue(':id', $id, \PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
+    }
+
     public function selectImagesByStampId($stampId)
     {
         $sql = "SELECT *

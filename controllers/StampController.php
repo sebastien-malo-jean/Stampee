@@ -240,4 +240,23 @@ class StampController
         }
         return $this->view->render('error');
     }
+
+    public function DeleteImage($data = [])
+    {
+        if (isset($data['id']) && $data['id'] != null) {
+            $imageModel = new Image();
+            $image = $imageModel->selectImageById($data['id']);
+            $imagePath = $_SERVER['DOCUMENT_ROOT'] . $image['url'];
+            if (file_exists($imagePath)) {
+                unlink($imagePath);
+            }
+            $delete = $imageModel->delete($data['id']);
+            if ($delete) {
+                return $this->view->redirect('stamp/edit?id=' . $image['stamp_id']);
+            } else {
+                return $this->view->render('error');
+            }
+        }
+        return $this->view->render('error');
+    }
 }

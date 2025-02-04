@@ -4,6 +4,7 @@ use App\Routes\Route;
 
 /*---  ---*/
 /*--- Test ---*/
+
 Route::get('', 'HomeController@index');
 Route::get('/home', 'HomeController@index');
 /*--- client ---*/
@@ -30,3 +31,4 @@ Route::get('/stamp/show', 'StampController@show');
 Route::get('/stamp/edit', 'StampController@edit');
 Route::post('/stamp/edit', 'StampController@update');
 Route::post('/stamp/delete', 'StampController@delete');
+Route::post('/stamp/deleteImage', 'StampController@deleteImage');

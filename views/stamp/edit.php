@@ -1,4 +1,4 @@
-{{ include('layouts/header.php', { title: 'Création de Timbre' }) }}
+{{ include('layouts/header.php', { title: 'Édition du Timbre' }) }}
 
 <div class="general-container">
 
