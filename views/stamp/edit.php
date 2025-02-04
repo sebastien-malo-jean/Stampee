@@ -33,7 +33,7 @@
         <!-- Formulaire principal -->
         <!-- ajouter l’attribut enctype pour l’upload d’images -->
         <form class="form" method="post" enctype="multipart/form-data">
-            <h2 class="form__title">Création d'un Timbre</h2>
+            <h2 class="form__title">Édition du Timbre</h2>
 
             <!-- Nom -->
             <label class="form__label">
