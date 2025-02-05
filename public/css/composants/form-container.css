@@ -29,11 +29,16 @@
 }
 
 .form-container__error {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     box-sizing: border-box;
-    max-width: 350px;
+    min-width: 80%;
     margin-bottom: var(--spacing-thin);
     padding: var(--spacing-nano);
-    color: var(--light);
+    color: var(--dark);
+    font-weight: 600;
     border-radius: var(--radius-sharp);
 }
 

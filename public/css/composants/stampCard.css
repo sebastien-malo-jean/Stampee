@@ -45,6 +45,7 @@
     order: 1;
     display: flex;
     flex-direction: column;
+    overflow-y: scroll;
     overflow-x: scroll;
     max-height: 750px;
     gap: var(--spacing-thin);
@@ -96,8 +97,6 @@
 /* Détails de la carte */
 .stampCard__box-details,
 .auctionCard__box-details {
-    flex-basis: 500px;
-    flex-grow: 1;
     display: flex;
     flex-direction: column;
     gap: var(--spacing-thin);
@@ -138,8 +137,28 @@
     border-radius: var(--radius-medium);
 }
 
+.auctionCard__bids-lastBid {
+    margin-top: var(--spacing-thin);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-thinnest);
+}
+
+.auctionCard__bids-lastBid-header,
+.auctionCard__bids-lastBid-body {
+    display: flex;
+    justify-content: space-around;
+}
+
+.auctionCard__bids-lastBid-header {
+    & p {
+        font-weight: 800;
+    }
+}
+
 /* Boutons */
-.stampCard__button {
+.stampCard__button,
+.auctionCard__button {
     text-align: center;
     border-radius: var(--radius-medium);
     background-color: var(--primary);
@@ -149,8 +168,6 @@
     font-size: var(--font-tall);
     font-weight: 600;
     align-self: center;
-    max-width: 35%;
-    min-width: 35%;
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
@@ -164,7 +181,22 @@
 /* Effet pour la zone d'édition */
 .auctionCard__auction-form {
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
+
+    & label {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: var(--spacing-thin);
+
+        & input {
+            max-width: 8ch;
+            padding: 3px;
+            font-weight: 600;
+        }
+    }
 }
 
 .stampCard__auction {
@@ -172,8 +204,7 @@
     justify-content: center;
 }
 
-.stampCard__auction a,
-.auctionCard__button {
+.stampCard__auction a {
     padding: var(--spacing-thinnest);
     border-radius: var(--radius-medium);
     background-color: var(--primary);

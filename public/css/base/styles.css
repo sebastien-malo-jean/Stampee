@@ -27,10 +27,6 @@ main {
     flex-direction: column;
     overflow: hidden;
 
-    & section {
-      margin-top: 50px;
-    }
-
     & section:nth-last-child() {
       margin-bottom: 25px;
     }

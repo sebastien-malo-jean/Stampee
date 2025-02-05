@@ -1,5 +1,5 @@
 {{ include('layouts/header.php', { title: 'Vue sur l\'enchère' }) }}
-
+<meta http-equiv="refresh" content="10">
 
 <section class="content__frame">
     <div class="content__frame-stampCard-page">
@@ -106,14 +106,54 @@
                     {% endif %}
                 </section>
 
+                <!-- Liste des enchères placées -->
+                <section id="bids-section" class="auctionCard__bids">
+                    <h3 class="auctionCard__bids-title">Historique des enchères</h3>
+
+                    {% if bids is not empty %}
+                    <div class="auctionCard__bids-lastBid">
+                        <div class="auctionCard__bids-lastBid-header">
+                            <p>Utilisateur : </p>
+                            <p>Prix : </p>
+                        </div>
+                        <div class="auctionCard__bids-lastBid-body">
+                            <p>{{ biggestBidValue.user_name}}</p>
+                            <p>{{ biggestBidValue.value }} €</p>
+                        </div>
+                    </div>
+
+
+
+
+                    {% else %}
+                    <p class="auctionCard__bids-empty">Aucune enchère placée pour cette enchère.</p>
+                    {% endif %}
+                </section>
+                <!-- Bloc pour les erreurs -->
+                {% if errors is defined %}
+                <div class="form-container__error">
+                    <ul class="form-container__error-list">
+                        {% for error in errors %}
+                        <li class="form-container__error-item">{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+
                 <!-- Actions -->
                 <section class="auctionCard__auction">
                     {% if guest is empty %}
-                    <form method="post" class="auctionCard__auction">
+                    <form method="post" action="{{ base }}/auction/show?id={{auction.id}}"
+                        class="auctionCard__auction-form">
                         <input type="hidden" name="id" value="{{ auction.id }}">
-                        <button type="submit" class="auctionCard__button">
-                            Placer une enchère
-                        </button>
+
+                        <label for="bidValue" class="auctionCard__auction-form-label">
+                            <p>Valeur actuelle : </p>
+                            <input type="number" name="value" id="bidValue" min="{{ auction.floor_price + 1 }}" step="5"
+                                required value="{{biggestBidValue.value}}">
+                        </label>
+
+                        <button type="submit" class="auctionCard__button">Placer une enchère</button>
                     </form>
                     {% else %}
                     <p class="auctionCard__auction-status">Vous devez vous connecter pour participer.</p>
@@ -124,5 +164,4 @@
 
     </div>
 </section>
-
 {{ include('layouts/footer.php') }}

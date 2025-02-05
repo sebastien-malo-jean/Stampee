@@ -46,6 +46,7 @@ class StampController
 
     public function store($data = [])
     {
+        //validation
         $validator = new Validator;
         $validator->field('name', $data['name'])->min(2)->max(50);
         $validator->field('date', $data['date'])->required();
