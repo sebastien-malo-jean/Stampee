@@ -32,9 +32,6 @@ class AuctionController
                 $auctionDate->end_date = $auction['end_date'];
                 $auction['timer'] = $auctionDate->getTimer();
 
-                // var_dump($auction['timer']);
-                // die();
-
                 $stampModel = new Stamp();
                 $stamp = $stampModel->selectAllFromTableById('Stamp', $auction['stamp_id']);
 
@@ -58,9 +55,7 @@ class AuctionController
 
                 $bidModel = new Bid();
                 $bids = $bidModel->selectBidByAuction_id($auction['id']);
-                // var_dump($bids);
-                // die();
-                // Récupérer les utilisateurs ayant placé une enchère
+
                 foreach ($bids as &$b) {
                     $userBid = new User();
                     $userBidInfo = $userBid->selectAllFromTableById('User', $b['user_id']);
@@ -76,13 +71,6 @@ class AuctionController
                     $biggestBidValue['user_name'] = $userBidInfo['name']; // Ajouter le nom d'utilisateur
                 }
 
-
-                // foreach ($bids as $b) {
-                //     $validator->field('user_id', $b['user_id'])->unique('Bid');
-                // }
-
-                // var_dump($auction);
-                // die();
                 return View::render('auction/show', [
                     'auction' => $auction,
                     'stamp' => $stamp,
@@ -158,6 +146,16 @@ class AuctionController
 
         // Rafraîchir les données après l'enchère
         return $this->renderAuctionPage($id);
+    }
+
+    public function AuctionList()
+    {
+
+        $auctionModel = new Auction();
+        $auction = $auctionModel->select('end_date');
+
+
+        return View::render('auction/showlist', ['auction' => $auction]);
     }
 
     private function renderAuctionPage($id, $errors = [])
