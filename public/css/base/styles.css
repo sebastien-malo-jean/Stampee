@@ -20,6 +20,7 @@ main {
   }
 
   .content__frame {
+    padding: clamp(var(--spacing-thin), 3dvw, var(--spacing-broad));
     box-sizing: border-box;
     max-width: 100%;
     display: flex;
@@ -46,6 +47,21 @@ main {
 
   .content__frame-under-title {
     margin-bottom: var(--spacing-broad);
+  }
+
+  .content__frame-auction-page {
+    margin-left: clamp(var(--spacing-thin), 3dvw, var(--spacing-broad));
+    ;
+    box-sizing: border-box;
+    max-width: 100%;
+    display: flex;
+    flex-basis: 100%;
+    flex-direction: column;
+    overflow: hidden;
+
+    & section:nth-last-child() {
+      margin-bottom: 25px;
+    }
   }
 
   .cards__box {

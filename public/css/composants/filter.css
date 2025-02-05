@@ -6,7 +6,6 @@
   background-color: var(--secondary);
   max-width: 225px;
   min-width: 175px;
-  margin: var(--spacing-broad);
   max-height: 625px;
   position: relative;
   transition: opacity 0.3s ease, visibility 0.3s ease;
@@ -127,8 +126,8 @@ body.no-scroll {
   label[for="filter-toggle"] {
     display: inline-block;
     position: relative;
-    top: 10px;
-    left: 10px;
+    top: -25px;
+    left: -25px;
     z-index: 15;
     cursor: pointer;
   }

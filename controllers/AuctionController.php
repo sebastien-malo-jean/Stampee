@@ -148,15 +148,92 @@ class AuctionController
         return $this->renderAuctionPage($id);
     }
 
-    public function AuctionList()
+    public function auctionList()
     {
-
         $auctionModel = new Auction();
-        $auction = $auctionModel->select('end_date');
+        // Supposons que selectAll() renvoie un tableau contenant toutes les enchères
+        $auctions = $auctionModel->select('end_date');
 
+        if ($auctions) {
+            // Charger les données communes (elles ne dépendent pas de l'enchère) une seule fois
+            $colorModel = new Color();
+            $colors = $colorModel->getColors();
 
-        return View::render('auction/showlist', ['auction' => $auction]);
+            $originModel = new Origin();
+            $origins = $originModel->getOrigins();
+
+            $stampStateModel = new Stamp_state();
+            $stampStates = $stampStateModel->getStampStates();
+
+            $auctionData = [];
+
+            // Pour chaque enchère, on récupère toutes les informations associées
+            foreach ($auctions as $auction) {
+                // Calcul du timer en fonction de la date de fin
+                $auctionDate = new Auction();
+                $auctionDate->end_date = $auction['end_date'];
+                $auction['timer'] = $auctionDate->getTimer();
+
+                // Récupérer le timbre associé à l'enchère
+                $stampModel = new Stamp();
+                $stamp = $stampModel->selectAllFromTableById('Stamp', $auction['stamp_id']);
+
+                // Récupérer le statut de l'enchère
+                $statusModel = new Status();
+                $status = $statusModel->selectAllFromTableById('Status', $auction['status_id']);
+
+                // Récupérer l'utilisateur associé au timbre
+                $userModel = new User();
+                $user = $userModel->selectAllFromTableById('User', $stamp['user_id']);
+
+                // Récupérer les images du timbre
+                $imagesModel = new Image();
+                $images = $imagesModel->selectImagesByStampId($stamp['id']);
+
+                // Récupérer l'ensemble des enchères (bids) pour cette enchère
+                $bidModel = new Bid();
+                $bids = $bidModel->selectBidByAuction_id($auction['id']);
+
+                // Pour chaque enchère, ajouter le nom de l'utilisateur ayant placé l'enchère
+                foreach ($bids as &$b) {
+                    $userBid = new User();
+                    $userBidInfo = $userBid->selectAllFromTableById('User', $b['user_id']);
+                    $b['user_name'] = $userBidInfo['name'];
+                }
+
+                // Récupérer la plus haute enchère (si elle existe)
+                $biggestBidValue = $bidModel->findBiggestValue($auction['id']);
+                if ($biggestBidValue) {
+                    $userBidInfo = $userModel->selectAllFromTableById('User', $biggestBidValue['user_id']);
+                    $biggestBidValue['user_name'] = $userBidInfo['name'];
+                }
+
+                // Ajouter toutes les informations de l'enchère dans le tableau de données
+                $auctionData[] = [
+                    'auction'         => $auction,
+                    'stamp'           => $stamp,
+                    'status'          => $status,
+                    'user'            => $user,
+                    'images'          => $images,
+                    'bids'            => $bids,
+                    'biggestBidValue' => $biggestBidValue,
+                ];
+            }
+
+            // On renvoie la vue en passant la liste complète des enchères et les données communes
+            return View::render('auction/showList', [
+                'auctions'    => $auctionData,
+                'colors'      => $colors,
+                'origins'     => $origins,
+                'stamp_states' => $stampStates,
+            ]);
+        } else {
+            return View::render('auction/showList', [
+                'auctions' => [],
+            ]);
+        }
     }
+
 
     private function renderAuctionPage($id, $errors = [])
     {
