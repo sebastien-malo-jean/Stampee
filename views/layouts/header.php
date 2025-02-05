@@ -21,7 +21,7 @@
         </div>
         <nav class='header__nav'>
             <ul class='header__menu'>
-                <li class='header__menu-item'><a href='' class='header__menu-link'>Enchères</a></li>
+                <li class='header__menu-item'><a href='{{base}}/auction' class='header__menu-link'>Enchères</a></li>
                 <li class='header__menu-item'><a href='' class='header__menu-link'>Favoris</a></li>
 
             </ul>
