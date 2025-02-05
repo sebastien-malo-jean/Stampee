@@ -1,3 +1,7 @@
+.stampCard {
+    max-width: 100dvw;
+}
+
 .stampCard,
 .stampCard__gallery {
     display: flex;
@@ -9,7 +13,7 @@
 }
 
 .stampCard__gallery {
-    flex-basis: 80%;
+    max-width: 75%;
     align-items: stretch;
     gap: var(--spacing-thin);
 }
@@ -37,13 +41,11 @@
 
 /* Miniatures */
 .stampCard__gallery-thumbnails {
-    min-width: 20%;
+    align-items: flex-end;
     order: 1;
-    flex-basis: 200px;
-    flex-grow: 1;
     display: flex;
     flex-direction: column;
-    overflow-y: auto;
+    overflow-x: scroll;
     max-height: 750px;
     gap: var(--spacing-thin);
     scrollbar-width: thin;
@@ -52,9 +54,10 @@
 }
 
 .stampCard__gallery-thumbnails--picture {
+    aspect-ratio: 1/1;
     position: relative;
+    width: 125px;
     height: 125px;
-    width: 100%;
     object-fit: cover;
     cursor: pointer;
     border-radius: var(--radius-medium);
@@ -64,8 +67,9 @@
 }
 
 .stampCard__gallery-thumbnails--img {
+    aspect-ratio: 1/1;
     height: 125px;
-    width: 100%;
+    width: 125px;
     object-fit: cover;
     cursor: pointer;
     border-radius: var(--radius-medium);
@@ -90,7 +94,8 @@
 }
 
 /* Détails de la carte */
-.stampCard__box-details {
+.stampCard__box-details,
+.auctionCard__box-details {
     flex-basis: 500px;
     flex-grow: 1;
     display: flex;
@@ -98,7 +103,8 @@
     gap: var(--spacing-thin);
 }
 
-.stampCard__details-box {
+.stampCard__details-box,
+.auctionCard__details-box {
     display: flex;
     justify-content: space-between;
     padding: var(--spacing-thinnest);
@@ -106,17 +112,20 @@
     transition: background-color 0.3s ease;
 }
 
-.stampCard__details-box--label {
+.stampCard__details-box--label,
+.auctionCard__details-box--label {
     font-weight: 600;
     color: var(--primary-dark);
 }
 
-.stampCard__details-box:hover {
+.stampCard__details-box:hover,
+.auctionCard__details-box:hover {
     background-color: var(--primary-light);
 }
 
 /* Mise en valeur des lignes paires */
-.stampCard__details .stampCard__details-box:nth-child(2n) {
+.stampCard__details .stampCard__details-box:nth-child(2n),
+.auctionCard__details .auctionCard__details-box:nth-child(2n) {
     background-color: rgb(255, 255, 255, 0.6);
 }
 
@@ -153,15 +162,21 @@
 }
 
 /* Effet pour la zone d'édition */
+.auctionCard__auction-form {
+    display: flex;
+    justify-content: center;
+}
+
 .stampCard__auction {
     display: flex;
     justify-content: center;
 }
 
-.stampCard__auction a {
+.stampCard__auction a,
+.auctionCard__button {
     padding: var(--spacing-thinnest);
     border-radius: var(--radius-medium);
-    background-color: var(--primary-dark);
+    background-color: var(--primary);
     color: var(--tertiary);
     font-weight: 600;
     text-align: center;
@@ -171,6 +186,8 @@
 .stampCard__auction a:hover {
     transform: scale(1.05);
 }
+
+
 
 /* Responsive mobile et tablette */
 @media (max-width: 850px) {

@@ -14,4 +14,13 @@ class Bid extends CRUD
         'auction_id',
         'user_id',
     ];
+
+    public function selectBidByAuction_id($auction_id)
+    {
+        $sql = "SELECT * FROM  bid  WHERE auction_id = :auction_id";
+        $stmt = $this->prepare($sql);
+        $stmt->bindValue(':auction_id', $auction_id, \PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
 }

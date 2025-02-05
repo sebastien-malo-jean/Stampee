@@ -34,3 +34,4 @@ Route::post('/stamp/delete', 'StampController@delete');
 Route::post('/stamp/deleteImage', 'StampController@deleteImage');
 /* Auction */
 Route::get('/auction/show', 'AuctionController@show');
+Route::post('/auction/show', 'AuctionController@placeBid');
