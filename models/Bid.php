@@ -17,7 +17,7 @@ class Bid extends CRUD
 
     public function selectBidByAuction_id($auction_id)
     {
-        $sql = "SELECT * FROM  bid  WHERE auction_id = :auction_id";
+        $sql = "SELECT * FROM  Bid  WHERE auction_id = :auction_id";
         $stmt = $this->prepare($sql);
         $stmt->bindValue(':auction_id', $auction_id, \PDO::PARAM_INT);
         $stmt->execute();
@@ -26,7 +26,7 @@ class Bid extends CRUD
 
     public function placeBid($user_id, $auction_id, $value)
     {
-        $sql = "INSERT INTO bid (user_id, auction_id, value, date) VALUES (:user_id, :auction_id, :value, NOW())";
+        $sql = "INSERT INTO Bid (user_id, auction_id, value, date) VALUES (:user_id, :auction_id, :value, NOW())";
         $stmt = $this->prepare($sql);
         $stmt->bindValue(':user_id', $user_id, \PDO::PARAM_INT);
         $stmt->bindValue(':auction_id', $auction_id, \PDO::PARAM_INT);
@@ -36,7 +36,7 @@ class Bid extends CRUD
 
     public function findBiggestValue($auction_id)
     {
-        $sql = "SELECT * FROM bid WHERE auction_id = :auction_id ORDER BY value DESC LIMIT 1";
+        $sql = "SELECT * FROM Bid WHERE auction_id = :auction_id ORDER BY value DESC LIMIT 1";
         $stmt = $this->prepare($sql);
         $stmt->bindValue(':auction_id', $auction_id, \PDO::PARAM_INT);
         $stmt->execute();

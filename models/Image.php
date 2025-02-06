@@ -6,13 +6,13 @@ use App\Models\CRUD;
 
 class Image extends CRUD
 {
-    protected $table = "image";
+    protected $table = "Image";
     protected $primaryKey = "id";
     protected $fillable = ['is_primary', 'name', 'url', 'stamp_id'];
 
     public function selectImageById($id)
     {
-        $sql = "SELECT * FROM image WHERE id = :id";
+        $sql = "SELECT * FROM Image WHERE id = :id";
         $stmt = $this->prepare($sql);
         $stmt->bindValue(':id', $id, \PDO::PARAM_INT);
         $stmt->execute();
@@ -22,7 +22,7 @@ class Image extends CRUD
     public function selectImagesByStampId($stampId)
     {
         $sql = "SELECT *
-            FROM image
+            FROM Image
             WHERE stamp_id = :stamp_id
             ORDER BY is_primary DESC";
         $stmt = $this->prepare($sql);
@@ -34,7 +34,7 @@ class Image extends CRUD
     public function selectPrimaryImageByStampId($stampId)
     {
         $sql = "SELECT *
-            FROM image
+            FROM Image
             WHERE stamp_id = :stamp_id
             AND is_primary = 1";
         $stmt = $this->prepare($sql);
@@ -45,7 +45,7 @@ class Image extends CRUD
 
     public function selectImageByNameAndStampId($name, $stampId)
     {
-        $sql = "SELECT * FROM image WHERE name = :name AND stamp_id = :stamp_id";
+        $sql = "SELECT * FROM Image WHERE name = :name AND stamp_id = :stamp_id";
         $params = ['name' => $name, 'stamp_id' => $stampId];
         $stmt = $this->prepare($sql);
         $stmt->bindValue(':name', $name, \PDO::PARAM_STR);
@@ -55,7 +55,7 @@ class Image extends CRUD
 
     public function deleteByStampId($stampId)
     {
-        $sql = "DELETE FROM image WHERE stamp_id = :stamp_id";
+        $sql = "DELETE FROM Image WHERE stamp_id = :stamp_id";
         $params = ['stamp_id' => $stampId];
         $stmt = $this->prepare($sql);
         $stmt->bindValue(':stamp_id', $stampId, \PDO::PARAM_INT);

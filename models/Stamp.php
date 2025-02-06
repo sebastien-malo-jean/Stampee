@@ -6,7 +6,7 @@ use App\Models\CRUD;
 
 class Stamp extends CRUD
 {
-    protected $table = "stamp";
+    protected $table = "Stamp";
     protected $primaryKey = "id";
     protected $fillable = [
         'name',

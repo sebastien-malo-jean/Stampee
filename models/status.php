@@ -6,7 +6,7 @@ use App\models\CRUD;
 
 class Status extends CRUD
 {
-    protected $table = "status";
+    protected $table = "Status";
     protected $primaryKey = "id";
     protected $fillable = [
         'state',
