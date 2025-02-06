@@ -18,7 +18,7 @@
 
         <label class="filter__label">
             <span class="filter__label-title title">Prix : </span>
-            <input type="number" name="price" class="filter__input" value="{{  }}">
+            <input type="number" name="price" class="filter__input" value="{{ price }}">
         </label>
 
         <!-- Pays d'origine depuis la base -->
@@ -60,4 +60,5 @@
 
         <button type="submit" class="filter__btn btn">Rechercher</button>
     </form>
+
 </div>

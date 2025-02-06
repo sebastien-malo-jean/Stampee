@@ -6,6 +6,7 @@
     justify-content: center;
     box-sizing: border-box;
     padding: var(--spacing-thin);
+    margin-top: var(--spacing-broad);
 }
 
 .newsletterCard__picture {

@@ -54,5 +54,5 @@
             </div>
         </li>
     </ul>
-    <a class='card__btn btn'>Miser</a>
+    <a class='card__btn btn' href="{{ base }}/auction/show?id={{ auction.id }}">Miser</a>
 </article>

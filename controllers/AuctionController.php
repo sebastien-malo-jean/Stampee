@@ -150,65 +150,68 @@ class AuctionController
 
     public function auctionList()
     {
+        // Récupérer les paramètres GET (en vérifiant qu'ils existent)
+        $search      = isset($_GET['search']) ? trim($_GET['search']) : null;
+        $price       = isset($_GET['price']) ? (float) $_GET['price'] : null;
+        $pays        = isset($_GET['pays']) ? $_GET['pays'] : null;
+        $year        = isset($_GET['year']) ? $_GET['year'] : null;
+        $condition   = isset($_GET['condition']) ? $_GET['condition'] : null;
+        $start_date  = isset($_GET['start_date']) ? $_GET['start_date'] : null;
+        $end_date    = isset($_GET['end_date']) ? $_GET['end_date'] : null;
+
         $auctionModel = new Auction();
-        // Supposons que selectAll() renvoie un tableau contenant toutes les enchères
-        $auctions = $auctionModel->select('end_date');
+        $auctions = $auctionModel->getFilteredAuctions([
+            'search'     => $search,
+            'price'      => $price,
+            'pays'       => $pays,
+            'year'       => $year,
+            'condition'  => $condition,
+            'start_date' => $start_date,
+            'end_date'   => $end_date,
+        ]);
 
+        // Récupérer les données supplémentaires pour les filtres (origines, conditions, etc.)
+        $originModel = new Origin();
+        $origins = $originModel->getOrigins();
+
+        $stampStateModel = new Stamp_state();
+        $stamp_states = $stampStateModel->getStampStates();
+
+        $auctionData = [];
         if ($auctions) {
-            // Charger les données communes (elles ne dépendent pas de l'enchère) une seule fois
-            $colorModel = new Color();
-            $colors = $colorModel->getColors();
-
-            $originModel = new Origin();
-            $origins = $originModel->getOrigins();
-
-            $stampStateModel = new Stamp_state();
-            $stampStates = $stampStateModel->getStampStates();
-
-            $auctionData = [];
-
-            // Pour chaque enchère, on récupère toutes les informations associées
             foreach ($auctions as $auction) {
-                // Calcul du timer en fonction de la date de fin
+                // Calcul du timer, récupération du stamp, statut, images, bids, etc.
                 $auctionDate = new Auction();
                 $auctionDate->end_date = $auction['end_date'];
                 $auction['timer'] = $auctionDate->getTimer();
 
-                // Récupérer le timbre associé à l'enchère
                 $stampModel = new Stamp();
                 $stamp = $stampModel->selectAllFromTableById('Stamp', $auction['stamp_id']);
 
-                // Récupérer le statut de l'enchère
                 $statusModel = new Status();
                 $status = $statusModel->selectAllFromTableById('Status', $auction['status_id']);
 
-                // Récupérer l'utilisateur associé au timbre
                 $userModel = new User();
                 $user = $userModel->selectAllFromTableById('User', $stamp['user_id']);
 
-                // Récupérer les images du timbre
                 $imagesModel = new Image();
                 $images = $imagesModel->selectImagesByStampId($stamp['id']);
 
-                // Récupérer l'ensemble des enchères (bids) pour cette enchère
                 $bidModel = new Bid();
                 $bids = $bidModel->selectBidByAuction_id($auction['id']);
 
-                // Pour chaque enchère, ajouter le nom de l'utilisateur ayant placé l'enchère
                 foreach ($bids as &$b) {
                     $userBid = new User();
                     $userBidInfo = $userBid->selectAllFromTableById('User', $b['user_id']);
                     $b['user_name'] = $userBidInfo['name'];
                 }
 
-                // Récupérer la plus haute enchère (si elle existe)
                 $biggestBidValue = $bidModel->findBiggestValue($auction['id']);
                 if ($biggestBidValue) {
                     $userBidInfo = $userModel->selectAllFromTableById('User', $biggestBidValue['user_id']);
                     $biggestBidValue['user_name'] = $userBidInfo['name'];
                 }
 
-                // Ajouter toutes les informations de l'enchère dans le tableau de données
                 $auctionData[] = [
                     'auction'         => $auction,
                     'stamp'           => $stamp,
@@ -219,21 +222,20 @@ class AuctionController
                     'biggestBidValue' => $biggestBidValue,
                 ];
             }
-
-            // On renvoie la vue en passant la liste complète des enchères et les données communes
-            return View::render('auction/showList', [
-                'auctions'    => $auctionData,
-                'colors'      => $colors,
-                'origins'     => $origins,
-                'stamp_states' => $stampStates,
-            ]);
-        } else {
-            return View::render('auction/showList', [
-                'auctions' => [],
-            ]);
         }
-    }
+        if (empty($auctionData)) {
+            $message = "Aucune enchère n'a été trouvée.";
+        } else {
+            $message = "";
+        }
 
+        return View::render('auction/showList', [
+            'auctions'     => $auctionData,
+            'origins'      => $origins,
+            'stamp_states' => $stamp_states,
+            'message' => $message,
+        ]);
+    }
 
     private function renderAuctionPage($id, $errors = [])
     {
@@ -264,7 +266,7 @@ class AuctionController
         $bidModel = new Bid();
         $bids = $bidModel->selectBidByAuction_id($auction['id']);
 
-        // Ajouter le nom de l'utilisateur pour la plus haute enchère
+        // Ajout du nom de l'utilisateur pour la plus haute enchère
         $biggestBidValue = $bidModel->findBiggestValue($auction['id']);
         if ($biggestBidValue) {
             $userBidInfo = $userModel->selectAllFromTableById('User', $biggestBidValue['user_id']);

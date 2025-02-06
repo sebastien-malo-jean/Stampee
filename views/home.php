@@ -1,8 +1,8 @@
 {{ include('layouts/header.php', { title: 'Vue sur le timbre' }) }}
 
 <section class="content__frame">
-    <!-- <section class='littleCardGrid'>
-        <h3 class='littleCardGrid__titre'>Coup de coeur du Lord Stampee :</h3>
+    <section class='littleCardGrid'>
+        <h3 class='littleCardGrid__titre'>enchère en cour : </h3>
         <div class='littleCardGrid__box'>
             <article class='littleCard'>
                 <div class='littleCard__picture'>
@@ -19,53 +19,9 @@
                 </div>
             </article>
 
-            <article class='littleCard'>
-                <div class='littleCard__picture'>
-                    <img src='https://images4-cdn.auctionmobility.com/is3/auctionmobility-static4/vavm-4-2583LY/4-3HHIFH/390_1.jpg?width=880&height=880&resizeinbox=true'
-                        alt='Timbres des années 1920 - Série limitée' class='littleCard__img'>
-                </div>
-                <div class='littleCard__detail'>
-                    <p class='littleCard__title'>Timbres des années 1920 - Série limitée</p>
-                    <p class='littleCard__price'>prix : 300 €</p>
-                    <div class='littleCard__auction-timeDetail'>
-                        <p class='littleCard__auction-timeLeft'>20/11/2024</p>
-                        <p class='littleCard__auction-bidPlaced'>8</p>
-                    </div>
-                </div>
-            </article>
-
-            <article class='littleCard'>
-                <div class='littleCard__picture'>
-                    <img src='https://images4-cdn.auctionmobility.com/is3/auctionmobility-static4/szME-4-2583LY/4-3HHIG5/401_1.jpg?width=720&height=720&resizeinbox=true'
-                        alt='Collection de timbres classiques du monde' class='littleCard__img'>
-                </div>
-                <div class='littleCard__detail'>
-                    <p class='littleCard__title'>Collection de timbres classiques du monde</p>
-                    <p class='littleCard__price'>prix : 1200 €</p>
-                    <div class='littleCard__auction-timeDetail'>
-                        <p class='littleCard__auction-timeLeft'>20/11/2024</p>
-                        <p class='littleCard__auction-bidPlaced'>4</p>
-                    </div>
-                </div>
-            </article>
-
-            <article class='littleCard'>
-                <div class='littleCard__picture'>
-                    <img src='https://images4-cdn.auctionmobility.com/is3/auctionmobility-static4/szME-4-2583LY/4-3HHIG5/401_1.jpg?width=720&height=720&resizeinbox=true'
-                        alt='Timbres de la guerre de Crimée' class='littleCard__img'>
-                </div>
-                <div class='littleCard__detail'>
-                    <p class='littleCard__title'>Timbres de la guerre de Crimée</p>
-                    <p class='littleCard__price'>prix : 550 €</p>
-                    <div class='littleCard__auction-timeDetail'>
-                        <p class='littleCard__auction-timeLeft'>30/11/2024</p>
-                        <p class='littleCard__auction-bidPlaced'>7</p>
-                    </div>
-                </div>
-            </article>
         </div>
     </section>
-    <section class='littleCardGrid'>
+    <!-- <section class='littleCardGrid'>
         <h3 class='littleCardGrid__titre'>Enchères populaires :</h3>
         <div class='littleCardGrid__box'>
             <article class='littleCard'>
@@ -204,6 +160,7 @@
             </article>
         </div>
     </section> -->
+
     <section class='profile'>
         <div class='profile__section-top-box'>
             <div class='profile__header'>

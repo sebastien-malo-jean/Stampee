@@ -9,6 +9,11 @@
             <h1 class="content__frame-title">Les enchères</h1>
             <h2 class="content__frame-under-title">La liste des enchères</h2>
         </header>
+
+        {% if message is not empty %}
+        <p class="aucune-enchere-message">{{ message }}</p>
+        {% endif %}
+
         <div class="cards__box">
             {% for a in auctions %}
             {{include('layouts/card.php', {
