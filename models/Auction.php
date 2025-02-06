@@ -11,7 +11,7 @@ class Auction extends CRUD
     public $start_date;
     public $end_date;
 
-    protected $table = "auction";
+    protected $table = "Auction";
     protected $primaryKey = "id";
     protected $fillable = [
         'start_date',

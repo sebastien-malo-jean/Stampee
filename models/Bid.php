@@ -6,7 +6,7 @@ use App\models\CRUD;
 
 class Bid extends CRUD
 {
-    protected $table = "bid";
+    protected $table = "Bid";
     protected $primaryKey = "id";
     protected $fillable = [
         'value',
