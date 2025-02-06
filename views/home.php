@@ -4,20 +4,15 @@
     <section class='littleCardGrid'>
         <h3 class='littleCardGrid__titre'>enchère en cour : </h3>
         <div class='littleCardGrid__box'>
-            <article class='littleCard'>
-                <div class='littleCard__picture'>
-                    <img src='https://images4-cdn.auctionmobility.com/is3/auctionmobility-static4/s32V-4-2583LY/4-3HHIEY/381_1.jpg?width=880&height=880&resizeinbox=true'
-                        alt='Collection de timbres rares - Série 1940' class='littleCard__img'>
-                </div>
-                <div class='littleCard__detail'>
-                    <p class='littleCard__title'>Collection de timbres rares - Série 1940</p>
-                    <p class='littleCard__price'>prix : 500 €</p>
-                    <div class='littleCard__auction-timeDetail'>
-                        <p class='littleCard__auction-timeLeft'>08/12/2024</p>
-                        <p class='littleCard__auction-bidPlaced'>12</p>
-                    </div>
-                </div>
-            </article>
+            {% for a in auctions %}
+            {{ include('layouts/littleCard.php', {
+                images: a.images,
+                auction: a.auction,
+                stamp: a.stamp,
+                biggestBidValue: a.biggestBidValue,
+                bids: a.bids
+                 })}}
+            {% endfor %}
 
         </div>
     </section>
